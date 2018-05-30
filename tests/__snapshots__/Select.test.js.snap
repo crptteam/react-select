@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SingleSelect Should renders without problems 1`] = `
+<SingleSelect
+  disabled={false}
+  onSelect={[Function]}
+  placeholder=""
+  values={
+    Array [
+      Object {
+        "id": 1,
+        "title": "default",
+      },
+    ]
+  }
+>
+  <InputWrap
+    disabled={false}
+    inline={true}
+    onBlur={[Function]}
+    placeholder=""
+  >
+    <InputWrap__Elem
+      background="#FFFFFF"
+      border="1px solid #ABADB5"
+      borderRadius="2px"
+      cursor="normal"
+      disabled={false}
+      fontSize="16px"
+      fontWeight={200}
+      height="64px"
+      inline={true}
+      minWidth="256px"
+      onBlur={[Function]}
+      paddingLeft="16px"
+      paddingRight="16px"
+      placeholder=""
+    >
+      <label
+        className="InputWrap__Elem-ieLiHj iQNxcZ"
+        cursor="normal"
+        disabled={false}
+        fontSize="16px"
+        fontWeight={200}
+        height="64px"
+        onBlur={[Function]}
+        placeholder=""
+      >
+        <InputContentWrap
+          disabled={false}
+          placeholder=""
+        >
+          <InputContentWrap__Elem
+            disabled={false}
+            placeholder=""
+          >
+            <div
+              className="InputContentWrap__Elem-fJNQWd jERbNT"
+              disabled={false}
+              placeholder=""
+            >
+              <InputElem
+                centered={true}
+                disabled={false}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder=""
+                value=""
+              >
+                <InputElem__Elem
+                  background="rgba(0,0,0,0)"
+                  borderRadius="2px"
+                  centered={true}
+                  color="#212C42"
+                  cursor="text"
+                  disabled={false}
+                  fontSize="16px"
+                  fontWeight={200}
+                  height="24px"
+                  minWidth="256px"
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  placeholder=""
+                  placeholderColor="#ACADB5"
+                  value=""
+                >
+                  <input
+                    className="InputElem__Elem-hSMfjd biySZo"
+                    color="#212C42"
+                    cursor="text"
+                    disabled={false}
+                    fontSize="16px"
+                    fontWeight={200}
+                    height="24px"
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    value=""
+                  />
+                </InputElem__Elem>
+              </InputElem>
+              <BottomArrow
+                fill="#212C42"
+                height="6"
+                viewBox="0 0 10 6"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <svg
+                  fill="#212C42"
+                  height="6"
+                  viewBox="0 0 10 6"
+                  width="10"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M9.669 1.887a1.087 1.087 0 0 0 0-1.563 1.145 1.145 0 0 0-1.596 0L4.999 3.332 1.927.324a1.145 1.145 0 0 0-1.596 0 1.087 1.087 0 0 0 0 1.563l3.87 3.79c.222.215.51.323.798.323.29 0 .578-.108.799-.324l3.87-3.79z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </BottomArrow>
+            </div>
+          </InputContentWrap__Elem>
+        </InputContentWrap>
+        <InvisibleSelect
+          innerRef={[Function]}
+        >
+          <select
+            className="InvisibleSelect-jWazBw eAEvZL"
+          >
+            <option
+              key="0"
+              value={1}
+            >
+              default
+            </option>
+          </select>
+        </InvisibleSelect>
+        <SelectOptionsPanel
+          visible={false}
+        >
+          <SelectOptionsPanel__Elem
+            background="#FFFFFF"
+            border="1px solid #ABADB5"
+            borderRadius="2px"
+            color="#212C42"
+            cursor="pointer"
+            fontSize="16px"
+            fontWeight={200}
+            height="64px"
+            hoverBackground="#1a99f4"
+            hoverColor="#fff"
+            minWidth="256px"
+            placeholderColor="#ACADB5"
+            visible={false}
+          >
+            <div
+              className="SelectOptionsPanel__Elem-cKzFPG jXfQWm"
+              color="#212C42"
+              cursor="pointer"
+              fontSize="16px"
+              fontWeight={200}
+              height="64px"
+            >
+              <SelectOption
+                key="1"
+                onClick={[Function]}
+              >
+                <SelectOption__Elem
+                  background="#FFFFFF"
+                  border="1px solid #ABADB5"
+                  borderRadius="2px"
+                  color="#212C42"
+                  cursor="pointer"
+                  fontSize="16px"
+                  fontWeight={200}
+                  height="64px"
+                  hoverBackground="#1a99f4"
+                  hoverColor="#fff"
+                  minWidth="256px"
+                  onClick={[Function]}
+                  placeholderColor="#ACADB5"
+                >
+                  <div
+                    className="SelectOption__Elem-gJXlZV YXHZw"
+                    color="#212C42"
+                    cursor="pointer"
+                    fontSize="16px"
+                    fontWeight={200}
+                    height="64px"
+                    onClick={[Function]}
+                  >
+                    default
+                  </div>
+                </SelectOption__Elem>
+              </SelectOption>
+            </div>
+          </SelectOptionsPanel__Elem>
+        </SelectOptionsPanel>
+      </label>
+    </InputWrap__Elem>
+  </InputWrap>
+</SingleSelect>
+`;
