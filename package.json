@@ -1,5 +1,5 @@
 {
-  "name": "react-input",
+  "name": "react-select",
   "version": "1.0.0",
   "description": "react-input React component",
   "main": "lib/index.js",
