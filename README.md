@@ -13,11 +13,10 @@ SingleSelect and MultiSelect React components.
 import { SingleSelect, MultiSelect } from "@crpt/react-select";
 
 <SingleSelect onSelect={val => console.log(vaL)} values={[{id:1, title: "Left"}, {id:2, title: "Right"]} />
-
+```
 
 ### SingleSelect
 
-```
 | PropName | Description | Example |
 |---|---|---|
 | values: Array (Required)  | Values. |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
@@ -29,7 +28,6 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 
 ### MultiSelect
 
-```
 | PropName | Description | Example |
 |---|---|---|
 | values: Array (Required)  | Values. |  `<MultiSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
