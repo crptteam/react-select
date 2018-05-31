@@ -1,10 +1,10 @@
 {
   "name": "@crpt/react-select",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react-input React component",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "files": ["css", "es", "lib", "umd"],
+  "files": ["css", "es", "lib", "umd", "src"],
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
