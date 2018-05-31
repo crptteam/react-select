@@ -1,5 +1,5 @@
 {
-  "name": "react-select",
+  "name": "@crpt/react-select",
   "version": "1.0.0",
   "description": "react-input React component",
   "main": "lib/index.js",
@@ -12,6 +12,9 @@
     "test": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:watch": "NODE_ENV=test jest --watch"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "styled-components": "1.4.6 - 3"

@@ -1,21 +1,49 @@
-# Select
+# react-select
 
-Компонент селекта.
-Может работать в одиночном режиме и в режиме мульти-селекта.
+[![Travis][build-badge]][build]
+[![npm package][npm-badge]][npm]
+[![Coveralls][coveralls-badge]][coveralls]
+
+SingleSelect and MultiSelect React components.
 
 ## Usage
 
 ```javascript
 
-import { Select } from "components/lib";
+import { SingleSelect, MultiSelect } from "@crpt/react-select";
 
-<Select onSelect={val => console.log(vaL)} values={[{id:1, title: "Left"}, {id:2, title: "Right", selected: true}]} />
+<SingleSelect onSelect={val => console.log(vaL)} values={[{id:1, title: "Left"}, {id:2, title: "Right"]} />
+
+
+### SingleSelect
 
 ```
-| PropName | Описание | Пример |
+| PropName | Description | Example |
 |---|---|---|
-| values: Array (Required)  | Список значений для выбора формата {id:number, title:string, selected:boolean}.<br/>Если selected=true, то соответствующий элемент или элементы выставляются в качестве выбранных.  |  `<Select values=[{id:1, title: "elem", selected: true}]  />` |
-| disabled: Boolean  | Если равно true, то Select выключен. |  `<Select disabled  />` |
-| onSelect: Function  | Callback выбора или обновления выбора.<br/>Получает аргументом объект либо массиво объектов. |  `<Select onSelect={val => console.log(vaL)}  />` |
-| placeholder: String  | Значение placeholder. |  `<Select placeholder="Категории"  />` |
-| multi: Boolean  | Если равно true, то Select работает в режиме выбора многих вариантов. |  `<Select multi />` |
+| values: Array (Required)  | Values. |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
+| disabled: Boolean  | Can be disabled. |  `<SingleSelect disabled  />` |
+| onSelect: Function  | Callback for select event. |  `<SingleSelect onSelect={val => console.log(val)}  />` |
+| placeholder: String  | Placeholder value. |  `<SingleSelect placeholder="Some placeholder"  />` |
+| selectedId: Integer  | If passed, child with id = selectedId becomes selected. |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}] selectedId={2}  />` |
+
+
+### MultiSelect
+
+```
+| PropName | Description | Example |
+|---|---|---|
+| values: Array (Required)  | Values. |  `<MultiSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
+| disabled: Boolean  | Can be disabled. |  `<MultiSelect disabled  />` |
+| onSelect: Function  | Callback for select event. |  `<MultiSelect onSelect={val => console.log(val)}  />` |
+| placeholder: String  | Placeholder value. |  `<MultiSelect placeholder="Some placeholder"  />` |
+| selectedIds: Array  | If passed, childs with id in selectedIds becomes selected. |  `<MultiSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}] selectedIds={[1,2]}  />` |
+
+
+[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
+[build]: https://travis-ci.org/user/repo
+
+[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
+[npm]: https://www.npmjs.org/package/npm-package
+
+[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
+[coveralls]: https://coveralls.io/github/user/repo
