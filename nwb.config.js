@@ -5,7 +5,7 @@ module.exports = {
     umd: false
   },
   babel: {
-    presets: ["env", "react"],
+    presets: [["env", {"modules": "umd"}], "react"],
     plugins: [
       "transform-class-properties",
       "transform-es2015-destructuring",
@@ -26,7 +26,24 @@ module.exports = {
     ],
     env: {
       production: {
-        plugins: ["transform-es2015-modules-commonjs", "inline-react-svg"]
+        plugins: [
+          "transform-class-properties",
+          "transform-es2015-destructuring",
+          "transform-object-rest-spread",
+          "transform-inline-environment-variables",
+          "transform-es2015-modules-commonjs",
+          [
+            "styled-components",
+            {
+              ssr: false,
+              minify: false,
+              displayName: true,
+              preprocess: false,
+              transpileTemplateLiterals: false
+            }
+          ],
+          "inline-react-svg"
+        ]
       },
       test: {
         plugins: ["transform-es2015-modules-commonjs", "inline-react-svg"]
