@@ -1,5 +1,5 @@
 export default {
-  minWidth: '256px',
+  minWidth: '200px',
   height: '64px',
   borderRadius: '2px',
   fontSize: '16px',
