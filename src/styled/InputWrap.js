@@ -8,7 +8,7 @@ const Elem = styled.label`
   js-display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   display: ${props => (props.inline ? 'inline-flex' : 'flex')};
   width: ${props => (props.inline ? props.width : '100%')};
-  min-width: ${props => (props.inline ? props.width : '100%')};
+  min-width: ${props => (props.inline ? props.minWidth : '100%')};
   height: ${props => props.height};
   box-sizing: border-box;
   background: ${props => props.background};
