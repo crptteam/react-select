@@ -23,7 +23,7 @@ class SingleSelect extends Component {
 
     this.state = {
       isOpen: false,
-      selectedId: this.props.selectedId ? this.props.selectedId : null,
+      selectedId: this.props.selectedId !== undefined ? this.props.selectedId : null,
       value: this.props.selectedId
         ? this.props.values.find(v => v.id === this.props.selectedId).title
         : "",
@@ -214,7 +214,7 @@ class SingleSelect extends Component {
         onMouseMove={this.onMouseMove}
       >
         <InputContentWrap {...otherProps} theme={theme}>
-          {Value ? (
+          {Value && this.state.selectedId !== null ? (
             <RenderWrap onClick={this.onClickRenderWrap}>
               <Value
                 selected={this.props.values.find(
