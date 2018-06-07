@@ -170,6 +170,8 @@ class SingleSelect extends Component {
   }
 
   onMouseOut(e) {
+    if (this.blurTimeout) clearTimeout(this.blurTimeout);
+
     this.blurTimeout = setTimeout(() => {
       this.setState({
         isOpen: false
