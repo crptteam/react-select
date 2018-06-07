@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import InputWrap from '../styled/InputWrap';
-import InputContentWrap from '../styled/InputContentWrap';
-import InputElem from '../styled/InputElem';
-import SelectOptionsPanel from '../styled/SelectOptionsPanel';
-import SelectOption from '../styled/SelectOption';
-import InvisibleSelect from '../styled/InvisibleSelect';
-import defaultTheme from '../theme/defaultTheme';
+import InputWrap from "../styled/InputWrap";
+import InputContentWrap from "../styled/InputContentWrap";
+import InputElem from "../styled/InputElem";
+import RenderWrap from "../styled/RenderWrap";
+import SelectOptionsPanel from "../styled/SelectOptionsPanel";
+import SelectOption from "../styled/SelectOption";
+import InvisibleSelect from "../styled/InvisibleSelect";
+import defaultTheme from "../theme/defaultTheme";
 
-import { BottomArrow } from '../svg';
-import MultiSelect from './MultiSelect';
+import { BottomArrow } from "../svg";
+import MultiSelect from "./MultiSelect";
 
 class SingleSelect extends Component {
   blurTimeout;
@@ -25,7 +26,7 @@ class SingleSelect extends Component {
       selectedId: this.props.selectedId ? this.props.selectedId : null,
       value: this.props.selectedId
         ? this.props.values.find(v => v.id === this.props.selectedId).title
-        : '',
+        : "",
       editedAfterSelection: false
     };
 
@@ -34,6 +35,9 @@ class SingleSelect extends Component {
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onClickRenderWrap = this.onClickRenderWrap.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.onMouseMove = this.onMouseMove.bind(this);
   }
 
   componentDidMount() {
@@ -52,7 +56,7 @@ class SingleSelect extends Component {
 
   clear() {
     this.setState({
-      value: '',
+      value: "",
       selectedId: null
     });
 
@@ -65,7 +69,7 @@ class SingleSelect extends Component {
       editedAfterSelection: this.state.selectedId !== null ? true : false
     });
 
-    console.log('wtf?', e.target.value);
+    console.log("wtf?", e.target.value);
 
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
@@ -101,7 +105,7 @@ class SingleSelect extends Component {
 
       if (this.state.selectedId === null) {
         this.setState({
-          value: ''
+          value: ""
         });
       }
     }, 200);
@@ -121,6 +125,8 @@ class SingleSelect extends Component {
                 .indexOf(this.state.value.toLocaleLowerCase())
     );
 
+    const RenderOption = this.props.renderOption;
+
     return filtered.length ? (
       filtered.map(v => (
         <SelectOption
@@ -128,7 +134,7 @@ class SingleSelect extends Component {
           theme={this.props.theme}
           onClick={e => this.onSelect(e, v)}
         >
-          {v.title}
+          {RenderOption ? <RenderOption value={v} /> : v.title}
         </SelectOption>
       ))
     ) : (
@@ -155,10 +161,46 @@ class SingleSelect extends Component {
     }
   }
 
+  onClickRenderWrap(e) {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+
+    if (this.blurTimeout) clearTimeout(this.blurTimeout);
+  }
+
+  onMouseOut(e) {
+    this.blurTimeout = setTimeout(() => {
+      this.setState({
+        isOpen: false
+      });
+
+      if (this.state.selectedId !== null && this.state.editedAfterSelection) {
+        this.setState({
+          value: this.props.values.find(v => v.id === this.state.selectedId)
+            .title
+        });
+      }
+
+      if (this.state.selectedId === null) {
+        this.setState({
+          value: ""
+        });
+      }
+    }, 1000);
+  }
+
+  onMouseMove(e) {
+    if (this.blurTimeout) clearTimeout(this.blurTimeout);
+
+  }
+
   render() {
     const theme = this.props.theme;
 
-    const { onSelect, name, values, ...otherProps } = this.props;
+    const { onSelect, name, values, renderValue, renderOption, ...otherProps } = this.props;
+
+    const Value = renderValue;
 
     return (
       <InputWrap
@@ -166,17 +208,29 @@ class SingleSelect extends Component {
         {...otherProps}
         onBlur={this.onBlur}
         theme={theme}
+        onMouseOut={this.onMouseOut}
+        onMouseMove={this.onMouseMove}
       >
         <InputContentWrap {...otherProps} theme={theme}>
-          <InputElem
-            value={this.state.value}
-            onChange={this.onChange}
-            placeholder={this.props.placeholder}
-            onFocus={this.onFocus}
-            centered
-            theme={theme}
-            disabled={this.props.disabled}
-          />
+          {Value ? (
+            <RenderWrap onClick={this.onClickRenderWrap}>
+              <Value
+                selected={this.props.values.find(
+                  v => v.id == this.state.selectedId
+                )}
+              />
+            </RenderWrap>
+          ) : (
+            <InputElem
+              value={this.state.value}
+              onChange={this.onChange}
+              placeholder={this.props.placeholder}
+              onFocus={this.onFocus}
+              centered
+              theme={theme}
+              disabled={this.props.disabled}
+            />
+          )}
 
           <BottomArrow />
         </InputContentWrap>
@@ -203,21 +257,23 @@ SingleSelect.propTypes = {
   onSelect: PropTypes.func,
   placeholder: PropTypes.string,
   values: PropTypes.array.isRequired,
-  selectedId: PropTypes.number
+  selectedId: PropTypes.number,
+  renderValue: PropTypes.oneOfType([ PropTypes.element, PropTypes.func ]),
+  renderOption: PropTypes.oneOfType([ PropTypes.element, PropTypes.func ])
 };
 
 SingleSelect.defaultProps = {
   disabled: false,
   onSelect: val => null,
-  placeholder: '',
+  placeholder: "",
   values: [
     {
       id: 1,
-      title: 'default'
+      title: "default"
     }
   ]
 };
 
-SingleSelect.displayName = 'SingleSelect';
+SingleSelect.displayName = "SingleSelect";
 
 export default SingleSelect;
