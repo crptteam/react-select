@@ -120,6 +120,9 @@ class SingleSelect extends Component {
   }
 
   renderValues() {
+
+    if (this.props.isLoading) return null;
+
     const filtered = this.props.values.filter(
       v =>
         this.state.selectedId !== null && !this.state.editedAfterSelection
