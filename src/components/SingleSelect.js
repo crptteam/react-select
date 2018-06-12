@@ -7,10 +7,11 @@ import InputElem from "../styled/InputElem";
 import RenderWrap from "../styled/RenderWrap";
 import SelectOptionsPanel from "../styled/SelectOptionsPanel";
 import SelectOption from "../styled/SelectOption";
+import DefaultLoading from "../styled/DefaultLoading";
 import InvisibleSelect from "../styled/InvisibleSelect";
 import defaultTheme from "../theme/defaultTheme";
 
-import { BottomArrow } from "../svg";
+import { BottomArrow, Search } from "../svg";
 import MultiSelect from "./MultiSelect";
 
 class SingleSelect extends Component {
@@ -23,7 +24,9 @@ class SingleSelect extends Component {
 
     this.state = {
       isOpen: false,
-      selectedId: this.props.selectedId !== undefined ? this.props.selectedId : null,
+      isFocused: false,
+      selectedId:
+        this.props.selectedId !== undefined ? this.props.selectedId : null,
       value: this.props.selectedId
         ? this.props.values.find(v => v.id === this.props.selectedId).title
         : "",
@@ -91,6 +94,10 @@ class SingleSelect extends Component {
   }
 
   onBlur(e) {
+    this.setState({
+      isFocused: false
+    });
+
     this.blurTimeout = setTimeout(() => {
       this.setState({
         isOpen: false
@@ -144,7 +151,8 @@ class SingleSelect extends Component {
 
   onFocus(e) {
     this.setState({
-      isOpen: true
+      isOpen: true,
+      isFocused: true
     });
 
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
@@ -194,13 +202,20 @@ class SingleSelect extends Component {
 
   onMouseMove(e) {
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
-
   }
 
   render() {
     const theme = this.props.theme;
 
-    const { onSelect, name, values, renderValue, renderOption, ...otherProps } = this.props;
+    const {
+      onSelect,
+      name,
+      values,
+      renderValue,
+      renderOption,
+      isLoading,
+      ...otherProps
+    } = this.props;
 
     const Value = renderValue;
 
@@ -234,7 +249,7 @@ class SingleSelect extends Component {
             />
           )}
 
-          <BottomArrow />
+          {this.state.isFocused ? <Search /> : <BottomArrow />}
         </InputContentWrap>
 
         <InvisibleSelect name={name} innerRef={el => (this.select = el)}>
@@ -246,7 +261,7 @@ class SingleSelect extends Component {
         </InvisibleSelect>
 
         <SelectOptionsPanel theme={theme} visible={this.state.isOpen}>
-          {this.renderValues()}
+          {isLoading ? <DefaultLoading>Загрузка...</DefaultLoading> : this.renderValues()}
         </SelectOptionsPanel>
       </InputWrap>
     );
@@ -260,8 +275,8 @@ SingleSelect.propTypes = {
   placeholder: PropTypes.string,
   values: PropTypes.array.isRequired,
   selectedId: PropTypes.number,
-  renderValue: PropTypes.oneOfType([ PropTypes.element, PropTypes.func ]),
-  renderOption: PropTypes.oneOfType([ PropTypes.element, PropTypes.func ])
+  renderValue: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  renderOption: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
 };
 
 SingleSelect.defaultProps = {
