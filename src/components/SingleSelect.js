@@ -139,9 +139,9 @@ class SingleSelect extends Component {
     const RenderOption = this.props.renderOption;
 
     return filtered.length ? (
-      filtered.map(v => (
+      filtered.map((v, i) => (
         <SelectOption
-          key={v.id}
+          key={i}
           theme={this.props.theme}
           onClick={e => this.onSelect(e, v)}
         >
