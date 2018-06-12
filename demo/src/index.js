@@ -9,6 +9,7 @@ class Demo extends Component {
       <div>
         <h1>react-select Demo</h1>
         <SingleSelect
+          onChange={val => console.log('val', val)}
           width={'100%'}
           values={[{ id: 0, title: "tralala" }, { id: 1, title: "trulala" }]}
           isLoading={true}

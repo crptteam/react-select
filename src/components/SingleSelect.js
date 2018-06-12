@@ -67,12 +67,12 @@ class SingleSelect extends Component {
   }
 
   onChange(e) {
+    if (this.props.onChange) this.props.onChange(e.target.value);
+
     this.setState({
       value: e.target.value,
       editedAfterSelection: this.state.selectedId !== null ? true : false
     });
-
-    console.log("wtf?", e.target.value);
 
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
@@ -211,6 +211,7 @@ class SingleSelect extends Component {
       onSelect,
       name,
       values,
+      onChange,
       renderValue,
       renderOption,
       isLoading,
@@ -261,7 +262,11 @@ class SingleSelect extends Component {
         </InvisibleSelect>
 
         <SelectOptionsPanel theme={theme} visible={this.state.isOpen}>
-          {isLoading ? <DefaultLoading>Загрузка...</DefaultLoading> : this.renderValues()}
+          {isLoading ? (
+            <DefaultLoading>Загрузка...</DefaultLoading>
+          ) : (
+            this.renderValues()
+          )}
         </SelectOptionsPanel>
       </InputWrap>
     );
@@ -272,6 +277,7 @@ SingleSelect.propTypes = {
   theme: PropTypes.object,
   disabled: PropTypes.bool,
   onSelect: PropTypes.func,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   values: PropTypes.array.isRequired,
   selectedId: PropTypes.number,
