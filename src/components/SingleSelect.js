@@ -55,6 +55,7 @@ class SingleSelect extends Component {
 
   componentWillUnmount() {
     this.props.onRef && this.props.onRef(undefined);
+    if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
 
   clear() {
