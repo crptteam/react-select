@@ -86,7 +86,9 @@ class SingleSelect extends Component {
     });
 
     if (this.select) {
-      this.select.querySelector(`[value="${v.id}"]`).selected = true;
+      try {
+        this.select.querySelector(`[value="${v.id}"]`).selected = true;
+      } catch (e) {}
     }
 
     this.props.onSelect(v);
@@ -120,7 +122,6 @@ class SingleSelect extends Component {
   }
 
   renderValues() {
-
     if (this.props.isLoading) return null;
 
     const filtered = this.props.values.filter(
