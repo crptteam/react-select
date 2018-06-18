@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { getThemeAsPlainTextByKeys } from '../utils';
-import defaultTheme from '../theme/defaultTheme';
+import { getThemeAsPlainTextByKeys, innerMerge } from "../utils";
+import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.input`
   display: block;
   position: relative;
-  width: ${props => (props.width ? props.width : '100%')};
+  width: ${props => (props.width ? props.width : "100%")};
   height: ${props => props.height};
   line-height: ${props => props.height};
   font-size: ${props => props.fontSize};
@@ -21,11 +21,11 @@ const Elem = styled.input`
   border: 0;
   overflow: hidden;
   padding: 0;
-  top: ${props => (props.centered ? '0' : '10px')};
+  top: ${props => (props.centered ? "0" : "10px")};
   background: ${props => props.background};
   cursor: ${props => props.cursor};
-  color: ${props => (props.noCaret ? 'rgba(0,0,0,0)' : props.color)};
-  text-shadow: ${props => (props.noCaret ? '0 0 0 ' + props.color : 'none')};
+  color: ${props => (props.noCaret ? "rgba(0,0,0,0)" : props.color)};
+  text-shadow: ${props => (props.noCaret ? "0 0 0 " + props.color : "none")};
   ::-webkit-input-placeholder {
     color: ${props => props.placeholderColor};
     font-size: ${props => props.fontSize};
@@ -34,14 +34,32 @@ const Elem = styled.input`
 `;
 
 const InputElem = props => {
-  const theme = getThemeAsPlainTextByKeys(props.theme || defaultTheme);
+  const merged = innerMerge(
+    {},
+    defaultTheme.Select,
+    (props.theme && props.theme.Select) || {}
+  );
 
-  Object.assign(theme, getThemeAsPlainTextByKeys(
-    (props.theme && props.theme.InputElem) || defaultTheme.InputElem,
-    props.disabled ? 'disabled' : props.isError ? 'error' : 'main'
-  ));
+  const theme = getThemeAsPlainTextByKeys(
+    merged,
+    props.disabled ? "disabled" : "main"
+  );
 
-  return <Elem {...theme} {...props}  />;
+  const mergedInputElem = innerMerge(
+    {},
+    defaultTheme.Select.InputElem,
+    (props.theme && props.theme.Select && props.theme.Select.InputElem) || {}
+  );
+
+  Object.assign(
+    theme,
+    getThemeAsPlainTextByKeys(
+      mergedInputElem,
+      props.disabled ? "disabled" : props.isError ? "error" : "main"
+    )
+  );
+
+  return <Elem {...theme} {...props} />;
 };
 
 export default InputElem;
