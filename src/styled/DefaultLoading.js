@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { getThemeAsPlainTextByKeys } from '../utils';
-import defaultTheme from '../theme/defaultTheme';
+import { getThemeAsPlainTextByKeys, innerMerge } from "../utils";
+import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Elem = styled.div`
     padding-bottom: 8px;
   }
   :after {
-    content: ${props => (props.multi ? null : '')};
+    content: ${props => (props.multi ? null : "")};
     width: 40px;
   }
   font-size: 16px;
@@ -31,12 +31,18 @@ const Elem = styled.div`
 `;
 
 const DefaultLoading = props => {
-  const theme = getThemeAsPlainTextByKeys(
-    (props.theme && props.theme) || defaultTheme,
-    props.disabled ? 'disabled' : 'main'
+  const merged = innerMerge(
+    {},
+    defaultTheme.Select,
+    (props.theme && props.theme.Select) || {}
   );
 
-  return <Elem {...theme} {...props}  />;
+  const theme = getThemeAsPlainTextByKeys(
+    merged,
+    props.disabled ? "disabled" : "main"
+  );
+
+  return <Elem {...theme} {...props} />;
 };
 
 export default DefaultLoading;
