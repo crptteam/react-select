@@ -9,8 +9,8 @@ const Elem = styled.div`
   top: 62px;
   left: -1px;
   min-width: ${props => (props.width ? props.width : "calc(100% + 2px)")};
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: ${props => props.paddingTop};
+  padding-bottom: ${props => props.paddingBottom};
   js-display: flex;
   display: ${props => (props.visible ? "flex" : "none")};
   flex-direction: column;
@@ -38,6 +38,14 @@ const SelectOptionsPanel = props => {
     merged,
     props.disabled ? "disabled" : "main"
   );
+
+  const mergedSelectOptionsPanel = innerMerge(
+    {},
+    defaultTheme.Select.SelectOptionsPanel,
+    (props.theme && props.theme.Select && props.theme.Select.SelectOptionsPanel) || {}
+  );
+
+  Object.assign(theme, getThemeAsPlainObjectByKeys(mergedSelectOptionsPanel));
 
   return <Elem {...theme} {...props} />;
 };
