@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import {withTheme} from "styled-components";
 
 import InputWrap from "../styled/InputWrap";
 import InputContentWrap from "../styled/InputContentWrap";
@@ -210,4 +210,4 @@ MultiSelect.defaultProps = {
 
 MultiSelect.displayName = "MultiSelect";
 
-export default MultiSelect;
+export default withTheme(MultiSelect);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import {withTheme} from 'styled-components';
 import InputWrap from "../styled/InputWrap";
 import InputContentWrap from "../styled/InputContentWrap";
 import InputElem from "../styled/InputElem";
@@ -304,4 +304,4 @@ SingleSelect.defaultProps = {
 
 SingleSelect.displayName = "SingleSelect";
 
-export default SingleSelect;
+export default withTheme(SingleSelect);
