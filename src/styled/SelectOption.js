@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getThemeAsPlainTextByKeys, innerMerge } from "../utils";
+import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
@@ -26,6 +26,7 @@ const Elem = styled.div`
   box-sizing: border-box;
   padding-left: 16px;
   padding-right: 16px;
+  height: ${props => props.custom ? '' : props.height};
   color: ${props => props.color};
   font-family: ${props => props.fontFamily};
   font-weight: ${props => props.fontWeight};
@@ -42,10 +43,18 @@ const SelectOption = props => {
     (props.theme && props.theme.Select) || {}
   );
 
-  const theme = getThemeAsPlainTextByKeys(
+  const theme = getThemeAsPlainObjectByKeys(
     merged,
     props.disabled ? "disabled" : "main"
   );
+
+  const mergedSelectOption = innerMerge(
+    {},
+    defaultTheme.Select.SelectOption,
+    (props.theme && props.theme.Select && props.theme.Select.SelectOption) || {}
+  );
+
+  Object.assign(theme, getThemeAsPlainObjectByKeys(mergedSelectOption));
 
   return <Elem {...theme} {...props} />;
 };

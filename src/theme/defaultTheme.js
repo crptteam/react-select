@@ -32,6 +32,9 @@ export default {
       hoverColor: "#fff",
       hoverBackground: "#1a99f4"
     },
+    SelectOption: {
+      height: 'auto'
+    },
     InputWrap: {
       main: {
         background: "#FFFFFF",
