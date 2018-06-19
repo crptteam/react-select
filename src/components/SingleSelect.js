@@ -7,6 +7,7 @@ import InputElem from "../styled/InputElem";
 import RenderWrap from "../styled/RenderWrap";
 import SelectOptionsPanel from "../styled/SelectOptionsPanel";
 import SelectOption from "../styled/SelectOption";
+import SelectText from "../styled/SelectText";
 import DefaultLoading from "../styled/DefaultLoading";
 import InvisibleSelect from "../styled/InvisibleSelect";
 import defaultTheme from "../theme/defaultTheme";
@@ -147,7 +148,10 @@ class SingleSelect extends Component {
           custom={!!RenderOption}
           onClick={e => this.onSelect(e, v)}
         >
-          {RenderOption ? <RenderOption value={v} /> : v.title}
+          {RenderOption 
+            ? <RenderOption value={v} /> 
+            : <SelectText truncate={this.props.truncate} multiline={this.props.multiline}>{v.title}</SelectText>
+          }
         </SelectOption>
       ))
     ) : (
@@ -267,7 +271,7 @@ class SingleSelect extends Component {
           ))}
         </InvisibleSelect>
 
-        <SelectOptionsPanel theme={theme} visible={this.state.isOpen}>
+        <SelectOptionsPanel theme={theme} visible={this.state.isOpen} truncate={this.props.truncate}>
           {isLoading ? (
             <DefaultLoading>Загрузка...</DefaultLoading>
           ) : (

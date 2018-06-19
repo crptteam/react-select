@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
@@ -16,7 +16,6 @@ const Elem = styled.div`
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  white-space: nowrap;
   box-sizing: border-box;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -25,6 +24,10 @@ const Elem = styled.div`
   z-index: 3;
   background: ${props => props.background};
   border: ${props => props.border};
+
+  ${props => props.truncate ? css`
+    width: ${props.width ? props.width : "calc(100% + 2px)"};
+  ` : ""}
 `;
 
 const SelectOptionsPanel = props => {

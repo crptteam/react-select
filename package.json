@@ -1,6 +1,6 @@
 {
   "name": "@crpt/react-select",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "react-input React component",
   "main": "lib/index.js",
   "module": "es/index.js",

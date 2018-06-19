@@ -7,6 +7,7 @@ import InputContentWrap from "../styled/InputContentWrap";
 import InputElem from "../styled/InputElem";
 import SelectOptionsPanel from "../styled/SelectOptionsPanel";
 import SelectOption from "../styled/SelectOption";
+import SelectText from "../styled/SelectText";
 import InvisibleSelect from "../styled/InvisibleSelect";
 import SelectedIconWrap from "../styled/SelectedIconWrap";
 import defaultTheme from "../theme/defaultTheme";
@@ -115,7 +116,7 @@ class MultiSelect extends Component {
   renderValues() {
     return this.props.values.map(v => (
       <SelectOption theme={this.props.theme} key={v.id} onClick={e => this.onSelect(e, v)} multi>
-        {v.title}
+        <SelectText truncate={this.props.truncate} multiline={this.props.multiline}>{v.title}</SelectText>
         <SelectedIconWrap>
           {~this.state.selectedIds.indexOf(v.id) ? (
             <SelectCheckmark />
@@ -176,7 +177,7 @@ class MultiSelect extends Component {
           ))}
         </InvisibleSelect>
 
-        <SelectOptionsPanel theme={theme} visible={this.state.isOpen}>
+        <SelectOptionsPanel theme={theme} visible={this.state.isOpen} truncate={this.props.truncate}>
           {this.renderValues()}
         </SelectOptionsPanel>
 
