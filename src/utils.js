@@ -6,7 +6,7 @@ export function getAllPlainValuesAsObj(obj) {
   return plain;
 }
 
-export function getThemeAsPlainTextByKeys(theme, ...keys) {
+export function getThemeAsPlainObjectByKeys(theme, ...keys) {
   const plain = getAllPlainValuesAsObj(theme);
 
   keys.forEach(key => theme[key] && Object.assign(plain, theme[key]));

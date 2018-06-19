@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getThemeAsPlainTextByKeys, innerMerge } from "../utils";
+import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.input`
@@ -40,7 +40,7 @@ const InputElem = props => {
     (props.theme && props.theme.Select) || {}
   );
 
-  const theme = getThemeAsPlainTextByKeys(
+  const theme = getThemeAsPlainObjectByKeys(
     merged,
     props.disabled ? "disabled" : "main"
   );
@@ -53,7 +53,7 @@ const InputElem = props => {
 
   Object.assign(
     theme,
-    getThemeAsPlainTextByKeys(
+    getThemeAsPlainObjectByKeys(
       mergedInputElem,
       props.disabled ? "disabled" : props.isError ? "error" : "main"
     )

@@ -144,6 +144,7 @@ class SingleSelect extends Component {
         <SelectOption
           key={i}
           theme={this.props.theme}
+          custom={!!RenderOption}
           onClick={e => this.onSelect(e, v)}
         >
           {RenderOption ? <RenderOption value={v} /> : v.title}

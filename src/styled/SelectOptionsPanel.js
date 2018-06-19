@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { getThemeAsPlainTextByKeys, innerMerge } from "../utils";
+import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
@@ -34,7 +34,7 @@ const SelectOptionsPanel = props => {
     (props.theme && props.theme.Select) || {}
   );
 
-  const theme = getThemeAsPlainTextByKeys(
+  const theme = getThemeAsPlainObjectByKeys(
     merged,
     props.disabled ? "disabled" : "main"
   );
