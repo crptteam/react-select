@@ -35,6 +35,10 @@ export default {
     SelectOption: {
       height: 'auto'
     },
+    SelectOptionsPanel: {
+      paddingTop: '8px',
+      paddingBottom: '8px'
+    },
     InputWrap: {
       main: {
         background: "#FFFFFF",
