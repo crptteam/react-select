@@ -10,6 +10,7 @@ import SelectOption from "../styled/SelectOption";
 import SelectText from "../styled/SelectText";
 import InvisibleSelect from "../styled/InvisibleSelect";
 import SelectedIconWrap from "../styled/SelectedIconWrap";
+import Placeholder from "../styled/Placeholder";
 import defaultTheme from "../theme/defaultTheme";
 
 import { BottomArrow, SelectCheckmark } from "../svg";
@@ -23,6 +24,7 @@ class MultiSelect extends Component {
 
     this.state = {
       isOpen: false,
+      isFocused: !!this.props.selectedIds.length,
       value:
         this.props.selectedIds && this.props.values
           ? this.getFilteredValues(this.props.selectedIds, this.props.values)
@@ -61,7 +63,8 @@ class MultiSelect extends Component {
   clear() {
     this.setState({
       value: "",
-      selectedIds: []
+      selectedIds: [],
+      isFocused: false,
     });
 
     this.props.onSelect && this.props.onSelect([]);
@@ -92,7 +95,8 @@ class MultiSelect extends Component {
 
     this.setState({
       value,
-      selectedIds: newSelectedIds
+      selectedIds: newSelectedIds,
+      isFocused: !!newSelectedIds.length,
     });
 
     this.select.querySelector(`option`).selected = false;
@@ -107,9 +111,10 @@ class MultiSelect extends Component {
 
   onBlur(e) {
     this.blurTimeout = setTimeout(() => {
-      this.setState({
-        isOpen: false
-      });
+      this.setState(oldState => ({
+        isOpen: false,
+        isFocused: !!oldState.selectedIds.length,
+      }));
     }, 200);
   }
 
@@ -150,13 +155,21 @@ class MultiSelect extends Component {
         component="Select"
       >
         <InputContentWrap {...otherProps}>
+          <Placeholder
+            focused={this.state.isFocused}
+            dispabled={this.props.disabled}
+            isError={this.props.isError}
+            theme={this.props.theme}
+            isSaved={this.props.savePlaceholder}
+          >
+            {this.props.placeholder}
+          </Placeholder>
           <InputElem
             noCaret
             value={this.state.value}
-            placeholder={this.props.placeholder}
             onFocus={this.onFocus}
             onChange={e => null}
-            centered
+            centered={!this.props.savePlaceholder}
             theme={theme}
             component="Select"
           />
