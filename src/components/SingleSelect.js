@@ -10,6 +10,7 @@ import SelectOption from "../styled/SelectOption";
 import SelectText from "../styled/SelectText";
 import DefaultLoading from "../styled/DefaultLoading";
 import InvisibleSelect from "../styled/InvisibleSelect";
+import Placeholder from "../styled/Placeholder";
 import defaultTheme from "../theme/defaultTheme";
 
 import { BottomArrow, Search } from "../svg";
@@ -25,7 +26,7 @@ class SingleSelect extends Component {
 
     this.state = {
       isOpen: false,
-      isFocused: false,
+      isFocused: !!this.props.selectedId,
       selectedId:
         this.props.selectedId !== undefined ? this.props.selectedId : null,
       value: this.props.selectedId
@@ -62,7 +63,8 @@ class SingleSelect extends Component {
   clear() {
     this.setState({
       value: "",
-      selectedId: null
+      selectedId: null,
+      isFocused: false,
     });
 
     this.props.onSelect && this.props.onSelect(null);
@@ -83,7 +85,8 @@ class SingleSelect extends Component {
     this.setState({
       selectedId: v.id,
       value: v.value ? v.value : v.title,
-      isOpen: false
+      isOpen: false,
+      isFocused: true,
     });
 
     if (this.select) {
@@ -98,14 +101,11 @@ class SingleSelect extends Component {
   }
 
   onBlur(e) {
-    this.setState({
-      isFocused: false
-    });
-
     this.blurTimeout = setTimeout(() => {
-      this.setState({
-        isOpen: false
-      });
+      this.setState( oldState => ({
+        isOpen: false,
+        isFocused: oldState.selectedId !== null
+      }));
 
       if (this.state.selectedId !== null && this.state.editedAfterSelection) {
         this.setState({
@@ -240,6 +240,16 @@ class SingleSelect extends Component {
         onMouseMove={this.onMouseMove}
       >
         <InputContentWrap {...otherProps} theme={theme}>
+          <Placeholder
+            focused={this.state.isFocused}
+            dispabled={this.props.disabled}
+            isError={this.props.isError}
+            theme={this.props.theme}
+            isSaved={this.props.savePlaceholder}
+          >
+            {this.props.placeholder}
+          </Placeholder>
+
           {Value && this.state.selectedId !== null ? (
             <RenderWrap onClick={this.onClickRenderWrap}>
               <Value
@@ -252,9 +262,8 @@ class SingleSelect extends Component {
             <InputElem
               value={this.state.value}
               onChange={this.onChange}
-              placeholder={this.props.placeholder}
               onFocus={this.onFocus}
-              centered
+              centered={!this.props.savePlaceholder}
               theme={theme}
               disabled={this.props.disabled}
             />
