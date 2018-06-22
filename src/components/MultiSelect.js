@@ -24,7 +24,7 @@ class MultiSelect extends Component {
 
     this.state = {
       isOpen: false,
-      isFocused: !!this.props.selectedIds.length,
+      isFocused: this.props.selectedIds && !!this.props.selectedIds.length || false,
       value:
         this.props.selectedIds && this.props.values
           ? this.getFilteredValues(this.props.selectedIds, this.props.values)
