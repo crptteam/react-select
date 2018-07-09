@@ -33,7 +33,7 @@ const Demo = () => (
       onSelect={value => console.log(value)}
       values={[
         {
-          id: 1, title: {testRenderOption} },
+          id: 1, title: 'Не лекарства' },
         { id: 2, title: 'Лекарства' },
       ]}
     />

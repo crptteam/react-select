@@ -63,11 +63,13 @@ class SingleSelect extends Component {
       values,
     } = this.props;
 
+    const isValidID = values.find(item => item.id === selectedId) !== undefined;
+
     this.defaultState = {
       isOpen: false,
-      isFocused: selectedId !== undefined,
-      selectedId: selectedId !== undefined ? selectedId : null,
-      value: selectedId ? values.find(v => v.id === selectedId).title : '',
+      isFocused: isValidID,
+      selectedId: isValidID ? selectedId : null,
+      value: isValidID ? values.find(item => item.id === selectedId).title : '',
       editedAfterSelection: false,
     };
 

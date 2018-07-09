@@ -49,7 +49,7 @@ const defaultProps = {
   truncate: false,
 };
 
-const SigngleSelectView = ({
+const SingleSelectView = ({
   inline,
   isFocused,
   isError,
@@ -134,7 +134,7 @@ const SigngleSelectView = ({
   </InputWrap>
 );
 
-SigngleSelectView.propTypes = propTypes;
-SigngleSelectView.defaultProps = defaultProps;
+SingleSelectView.propTypes = propTypes;
+SingleSelectView.defaultProps = defaultProps;
 
-export default SigngleSelectView;
+export default SingleSelectView;
