@@ -21,7 +21,21 @@ class SingleSelect extends Component {
     multiline: PropTypes.bool,
     disabled: PropTypes.bool,
     theme: PropTypes.object,
-    values: PropTypes.array,
+    values: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        value: PropTypes.oneOfType([
+          PropTypes.element,
+          PropTypes.func,
+          PropTypes.string,
+        ]),
+        title: PropTypes.oneOfType([
+          PropTypes.element,
+          PropTypes.func,
+          PropTypes.string,
+        ]).isRequired,
+      }),
+    ),
     selectedId: PropTypes.number,
     renderValue: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     renderOption: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
@@ -35,8 +49,10 @@ class SingleSelect extends Component {
     truncate: false,
     multiline: false,
     disabled: false,
-    placeholder: '',
     values: [{ id: 0, title: '' }],
+    selectedId: undefined,
+    renderValue: undefined,
+    renderOption: undefined,
   };
 
   constructor(props) {
