@@ -23,6 +23,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | disabled: Boolean  | Can be disabled. |  `<SingleSelect disabled  />` |
 | onSelect: Function  | Callback for select event. |  `<SingleSelect onSelect={val => console.log(val)}  />` |
 | placeholder: String  | Placeholder value. |  `<SingleSelect placeholder="Some placeholder"  />` |
+| savePlaceholder: Boolean | When true, placeholder's text is placed on top if any of value is selected and in the center otherwise | |
 | selectedId: Integer  | If passed, child with id = selectedId becomes selected. |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}] selectedId={2}  />` |
 | truncate: Boolean | Long text truncation. Select options width will not exceed input width.  | `<SingleSelect truncate values=[{id:1, title: "very looong text"}] />` |
 | multiline: Boolean | Long text wrap. | `<SingleSelect multiline values=[{id:1, title: "very looong text"}] />` |
