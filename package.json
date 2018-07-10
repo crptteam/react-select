@@ -18,7 +18,7 @@
     "test": "NODE_ENV=test jest --no-cache -u",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:watch": "NODE_ENV=test jest --watch",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "NODE_ENV=src start-storybook -p 9001 -c .storybook"
   },
   "publishConfig": {
     "access": "public"

@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 
-import SelectOption from '../../styled/SelectOption';
-import SelectText from '../../styled/SelectText';
-import SingleSelectView from './SingleSelectView';
+import SingleSelectView from './SingleSelectView/index';
 import {
   ON_BLUR_TIMEOUT_MS,
   ON_MOUSE_OUT_TIMEOUT_MS,
@@ -16,11 +14,8 @@ class SingleSelect extends Component {
   static displayName = 'SingleSelect';
 
   static propTypes = {
-    isLoading: PropTypes.bool,
-    truncate: PropTypes.bool,
-    multiline: PropTypes.bool,
     disabled: PropTypes.bool,
-    theme: PropTypes.object,
+    selectedId: PropTypes.number,
     values: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -36,23 +31,18 @@ class SingleSelect extends Component {
         ]).isRequired,
       }),
     ),
-    selectedId: PropTypes.number,
-    renderValue: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-    renderOption: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     onRef: PropTypes.func,
     onSelect: PropTypes.func,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    isLoading: false,
-    truncate: false,
-    multiline: false,
     disabled: false,
-    values: [{ id: 0, title: '' }],
     selectedId: undefined,
-    renderValue: undefined,
-    renderOption: undefined,
+    values: [{ id: 0, title: '' }],
+    onRef: () => {},
+    onSelect: () => {},
+    onChange: () => {},
   };
 
   constructor(props) {
@@ -63,13 +53,13 @@ class SingleSelect extends Component {
       values,
     } = this.props;
 
-    const isValidID = values.find(item => item.id === selectedId) !== undefined;
+    const isValidId = values.find(item => item.id === selectedId) !== undefined;
 
     this.defaultState = {
       isOpen: false,
-      isFocused: isValidID,
-      selectedId: isValidID ? selectedId : null,
-      value: isValidID ? values.find(item => item.id === selectedId).title : '',
+      isFocused: isValidId,
+      selectedId: isValidId ? selectedId : null,
+      value: isValidId ? values.find(item => item.id === selectedId).title : '',
       editedAfterSelection: false,
     };
 
@@ -236,64 +226,16 @@ class SingleSelect extends Component {
     }
   }
 
-  renderValues = () => {
-    const {
-      isLoading,
-      values,
-      renderOption: RenderOption,
-      theme,
-      truncate,
-      multiline,
-    } = this.props;
-    const { value, selectedId, editedAfterSelection } = this.state;
-
-    if (isLoading) {
-      return null;
-    }
-
-    const filtered = values.filter(
-      item => (
-        selectedId !== null && !editedAfterSelection
-          ? true
-          : item.filterString
-            ? ~item.filterString
-                .toLocaleLowerCase()
-                .indexOf(value.toLocaleLowerCase())
-            : ~item.title
-                .toLocaleLowerCase()
-                .indexOf(value.toLocaleLowerCase())
-      )
-    );
-
-    return filtered.length ? (
-      filtered.map((v, i) => (
-        <SelectOption
-          key={i}
-          theme={theme}
-          custom={!!RenderOption}
-          onClick={e => this.onSelect(e, v)}
-        >
-          {RenderOption
-            ? <RenderOption value={v} />
-            : (
-              <SelectText truncate={truncate} multiline={multiline}>
-                {v.title}
-              </SelectText>
-            )
-          }
-        </SelectOption>
-      ))
-    ) : (
-      <SelectOption>
-        &lt;пусто&gt;
-      </SelectOption>
-    );
-  }
+  onRef = (extRef) => {
+    this.select = extRef;
+  };
 
   render() {
     return (
       <SingleSelectView
-        select={this.select}
+        {...this.props}
+        {...this.state}
+        onRef={this.onRef}
         renderValues={this.renderValues}
         onChange={this.onChange}
         onSelect={this.onSelect}
@@ -303,8 +245,6 @@ class SingleSelect extends Component {
         onClickRenderWrap={this.onClickRenderWrap}
         onMouseOut={this.onMouseOut}
         onMouseMove={this.onMouseMove}
-        {...this.props}
-        {...this.state}
       />
     );
   }

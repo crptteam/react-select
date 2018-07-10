@@ -1,12 +1,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs/react';
+import { ThemeProvider } from "styled-components";
 
 import { SingleSelect, THEMES } from '../index';
 
 const singleSelectElements = storiesOf('SingleSelect', module);
 
+const withTheme = story => (
+  <ThemeProvider theme={THEMES.defaultTheme}>
+    {story()}
+  </ThemeProvider>
+);
+
 singleSelectElements.addDecorator(withKnobs);
+singleSelectElements.addDecorator(withTheme);
 
 singleSelectElements.add('simple and selectesId = 0', () => (
   <SingleSelect

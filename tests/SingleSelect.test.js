@@ -1,6 +1,8 @@
 import React from "react";
-import { SingleSelect } from "../src/";
 import { shallow, mount } from 'enzyme';
+import { ThemeProvider } from "styled-components";
+
+import { SingleSelect, THEMES } from '../src/index';
 
 describe('SingleSelect render', () => {
   it('should renders without problems', () => {

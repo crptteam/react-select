@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { ThemeProvider } from "styled-components";
 
+import defaultTheme from '../../src/theme/defaultTheme';
 import { SingleSelect } from '../../src';
 
 
@@ -55,7 +57,12 @@ const Demo = () => (
   </div>
 );
 
-render(<Demo />, document.querySelector("#demo"));
+render(
+  <ThemeProvider theme={defaultTheme}>
+    <Demo />
+  </ThemeProvider>,
+  document.querySelector("#demo")
+);
 
 const sss = {
   id: 1,
