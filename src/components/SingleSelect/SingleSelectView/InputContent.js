@@ -38,8 +38,8 @@ export default class InputContent extends Component {
       }),
     ),
     selectedId: PropTypes.number,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     onClickRenderWrap: PropTypes.func.isRequired,
   };
 
@@ -72,7 +72,7 @@ export default class InputContent extends Component {
       value,
       values,
       onChange,
-      onFocus,
+      onClick,
       onClickRenderWrap,
       theme,
       ...otherProps
@@ -100,7 +100,7 @@ export default class InputContent extends Component {
           <InputElem
             value={value}
             onChange={onChange}
-            onFocus={onFocus}
+            onClick={onClick}
             centered={!savePlaceholder}
             theme={theme}
             disabled={disabled}

@@ -24,20 +24,21 @@ const propTypes = {
     }),
   ),
   name: PropTypes.string,
-  onRef: PropTypes.func,
-  onMouseOut: PropTypes.func,
-  onMouseMove: PropTypes.func,
-  onBlur: PropTypes.func,
+  onRef: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
+  onMouseOut: PropTypes.func.isRequired,
+  onMouseMove: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   inline: false,
   name: undefined,
   values: [],
-  onRef: () => {},
-  onMouseOut: () => {},
-  onMouseMove: () => {},
-  onBlur: () => {},
 };
 
 const SingleSelectView = (props) => {
@@ -46,20 +47,32 @@ const SingleSelectView = (props) => {
     values,
     name,
     onRef,
+    onChange,
+    onSelect,
+    onFocus,
+    onBlur,
+    onClick,
+    onKeyPress,
     onMouseOut,
     onMouseMove,
-    onBlur,
     ...otherProps
   } = props;
   return (
     <InputWrap
       inline={inline === false ? inline : true}
+      onFocus={onFocus}
+      onKeyPress={onKeyPress}
       onMouseOut={onMouseOut}
       onMouseMove={onMouseMove}
       onBlur={onBlur}
       {...otherProps}
     >
-      <InputContent {...props} />
+      <InputContent
+        values={values}
+        onClick={onClick}
+        onChange={onChange}
+        {...otherProps}
+      />
 
       <InvisibleSelect name={name} innerRef={onRef}>
         {values.map(item => (
@@ -69,7 +82,7 @@ const SingleSelectView = (props) => {
         ))}
       </InvisibleSelect>
 
-      <OptionsPanel {...props} />
+      <OptionsPanel onSelect={onSelect} values={values} {...otherProps} />
     </InputWrap>
   );
 };

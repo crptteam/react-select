@@ -9,8 +9,6 @@ import {
 } from './constants';
 
 class SingleSelect extends Component {
-  select;
-
   static displayName = 'SingleSelect';
 
   static propTypes = {
@@ -64,7 +62,8 @@ class SingleSelect extends Component {
     };
 
     this.state = this.defaultState;
-    this.blurTimeout = undefined;
+    this.blurTimeout = null;
+    this.select = null;
   }
 
   componentDidMount() {
@@ -90,16 +89,6 @@ class SingleSelect extends Component {
 
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout);
-    }
-  }
-
-  clear() {
-    const { onSelect } = this.props;
-
-    this.setState(this.defaultState);
-
-    if (onSelect) {
-      onSelect(null);
     }
   }
 
@@ -141,47 +130,25 @@ class SingleSelect extends Component {
   }
 
   onBlur = () => {
-    this.blurTimeout = setTimeout(() => {
-      const { selectedId, editedAfterSelection } = this.state;
-      const { values } = this.props;
-
-      this.setState(oldState => ({
-        isOpen: false,
-        isFocused: oldState.selectedId !== null,
-      }));
-
-      if (selectedId !== null && editedAfterSelection) {
-        this.setState({
-          value: values.find(item => item.id === selectedId).title,
-        });
-      }
-
-      if (selectedId === null) {
-        this.setState({
-          value: '',
-        });
-      }
-    }, ON_BLUR_TIMEOUT_MS);
+    this.blurTimeout = setTimeout(this.closeOptionPanel, ON_BLUR_TIMEOUT_MS);
   }
 
   onFocus = (event) => {
     const { selectedId } = this.state;
 
-    this.setState({
-      isOpen: true,
-      isFocused: true,
-    });
-
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    this.openOptionPanel();
 
     if (selectedId !== null) {
       event.target.select();
     }
   }
 
+  onKeyPress = () => {
+    this.openOptionPanel();
+  }
+
   onClick = (event) => {
+    this.openOptionPanel();
     const { disabled } = this.props;
     if (!disabled) {
       return;
@@ -230,6 +197,44 @@ class SingleSelect extends Component {
     this.select = extRef;
   };
 
+  openOptionPanel = () => {
+    this.setState({
+      isOpen: true,
+      isFocused: true,
+    });
+    if (this.blurTimeout) {
+      clearTimeout(this.blurTimeout);
+    }
+  }
+
+  closeOptionPanel = () => {
+    const { selectedId, editedAfterSelection } = this.state;
+    const { values } = this.props;
+
+    this.setState(oldState => ({
+      isOpen: false,
+      isFocused: oldState.selectedId !== null,
+    }));
+
+    if (selectedId !== null && editedAfterSelection) {
+      this.setState({ value: values.find(item => item.id === selectedId).title });
+    }
+
+    if (selectedId === null) {
+      this.setState({ value: '' });
+    }
+  }
+
+  clear() {
+    const { onSelect } = this.props;
+
+    this.setState(this.defaultState);
+
+    if (onSelect) {
+      onSelect(null);
+    }
+  }
+
   render() {
     return (
       <SingleSelectView
@@ -240,6 +245,7 @@ class SingleSelect extends Component {
         onChange={this.onChange}
         onSelect={this.onSelect}
         onFocus={this.onFocus}
+        onKeyPress={this.onKeyPress}
         onBlur={this.onBlur}
         onClick={this.onClick}
         onClickRenderWrap={this.onClickRenderWrap}
