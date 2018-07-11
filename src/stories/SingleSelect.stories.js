@@ -27,6 +27,7 @@ singleSelectElements.add('simple and selectesId = 0', () => (
     values={[
       { id: 0, title: 'Не лекарства' },
       { id: 1, title: 'Лекарства' },
+      { id: 2, title: 'Лекарь' },
     ]}
     selectedId={0}
   />
@@ -108,7 +109,6 @@ singleSelectElements.add('with renderOptions and renderValue', () => (
       { id: 1, title: 'bbb' },
       { id: 2, title: 'ccc' },
     ]}
-    selectedId={1}
   />
 ));
 

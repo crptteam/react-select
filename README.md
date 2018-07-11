@@ -24,7 +24,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 
 | PropName | Description | Example |
 |---|---|---|
-| values: Array (Required)  | Values. |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
+| values: Array (Required)  | Values. See Note1 |  `<SingleSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}]  />` |
 | disabled: Boolean  | Can be disabled. |  `<SingleSelect disabled  />` |
 | onSelect: Function  | Callback for select event. |  `<SingleSelect onSelect={val => console.log(val)}  />` |
 | onChange: Function | Callback for change event | |
@@ -37,6 +37,14 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | renderValue: React element or function | It is shown inside select field (working with renderOption) | |
 | renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
+
+__Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render it. But some properties are special.
+| Property name | Property type | Property description |
+|---|---|---|
+| id (required) | Number | Must be unique integer |
+| value (required) | | Value is returned on onSelect |
+| title (required) |  | Title is shown on the text field after select |
+
 
 
 ### MultiSelect

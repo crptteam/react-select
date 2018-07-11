@@ -44,7 +44,6 @@ export default class InputContent extends Component {
   };
 
   static defaultProps = {
-    inline: false,
     isFocused: false,
     isError: false,
     disabled: false,
