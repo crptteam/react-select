@@ -15,6 +15,7 @@ export default class InputContent extends Component {
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     savePlaceholder: PropTypes.bool,
+    withoutIcon: PropTypes.bool,
     theme: PropTypes.object,
     renderValue: PropTypes.oneOfType([
       PropTypes.element,
@@ -49,6 +50,7 @@ export default class InputContent extends Component {
     disabled: false,
     placeholder: '',
     savePlaceholder: false,
+    withoutIcon: false,
     renderValue: undefined,
     selectedId: null,
     values: [],
@@ -69,6 +71,7 @@ export default class InputContent extends Component {
       savePlaceholder,
       renderValue: RenderValue,
       selectedId,
+      withoutIcon,
       value,
       values,
       onChange,
@@ -77,6 +80,8 @@ export default class InputContent extends Component {
       theme,
       ...otherProps
     } = this.props;
+
+    const DrawIcon = isFocused ? <Search /> : <BottomArrow />;
 
     return (
       <InputContentWrap {...otherProps} theme={theme} onSelect={this.onSelectBlocker}>
@@ -107,7 +112,7 @@ export default class InputContent extends Component {
           />
         )}
 
-        {isFocused ? <Search /> : <BottomArrow />}
+        {withoutIcon ? null : DrawIcon }
       </InputContentWrap>
     );
   }

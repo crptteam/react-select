@@ -14,6 +14,7 @@ class SingleSelect extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     selectedId: PropTypes.number,
+    withoutIcon: PropTypes.bool,
     values: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -37,6 +38,7 @@ class SingleSelect extends Component {
   static defaultProps = {
     disabled: false,
     selectedId: undefined,
+    withoutIcon: false,
     values: [{ id: 0, title: '' }],
     onRef: () => {},
     onSelect: () => {},
@@ -150,9 +152,7 @@ class SingleSelect extends Component {
   onClick = (event) => {
     this.openOptionPanel();
     const { disabled } = this.props;
-    if (!disabled) {
-      return;
-    }
+    if (!disabled) { return; }
 
     event.preventDefault();
     event.stopPropagation();
@@ -162,9 +162,7 @@ class SingleSelect extends Component {
     const { isOpen } = this.state;
     this.setState({ isOpen: !isOpen });
 
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onMouseOut = () => {
@@ -193,18 +191,15 @@ class SingleSelect extends Component {
     }
   }
 
-  onRef = (extRef) => {
-    this.select = extRef;
-  };
+  onRef = (extRef) => { this.select = extRef; };
 
   openOptionPanel = () => {
     this.setState({
       isOpen: true,
       isFocused: true,
     });
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   closeOptionPanel = () => {
@@ -230,9 +225,7 @@ class SingleSelect extends Component {
 
     this.setState(this.defaultState);
 
-    if (onSelect) {
-      onSelect(null);
-    }
+    if (onSelect) { onSelect(null); }
   }
 
   render() {
