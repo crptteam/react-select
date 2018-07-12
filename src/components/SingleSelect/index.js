@@ -15,6 +15,7 @@ class SingleSelect extends Component {
     disabled: PropTypes.bool,
     selectedId: PropTypes.number,
     withoutIcon: PropTypes.bool,
+    filterDisabled: PropTypes.bool,
     values: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -39,6 +40,7 @@ class SingleSelect extends Component {
     disabled: false,
     selectedId: undefined,
     withoutIcon: false,
+    filterDisabled: false,
     values: [{ id: 0, title: '' }],
     onRef: () => {},
     onSelect: () => {},

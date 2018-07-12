@@ -38,15 +38,17 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
 
-__Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render it. But some properties are special.
+__Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render еруь. But some properties are special.
 
 | Property name | Property type | Property description |
 |---|---|---|
 | id (required) | Number | Must be unique integer |
-| value (required) | | Value is returned on onSelect |
-| title (required) |  | Title is shown on the text field after select |
-| filterDisable | | |
+| value (required) | String, function or element| Value is returned on onSelect |
+| title (required) | String, function or element | Title is shown on the text field after the select |
+| filterString | String | If defined filter process use this properties instead of title |
+| filterDisable | Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisable is true optionList isn't filtered |
 | withoutIcon | Boolean | Seach and BottomArrow Icons are not shown when properties is true |
+
 
 
 

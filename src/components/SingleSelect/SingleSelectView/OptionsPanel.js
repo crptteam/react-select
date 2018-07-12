@@ -13,6 +13,7 @@ export default class OptionsPanel extends Component {
     truncate: PropTypes.bool,
     multiline: PropTypes.bool,
     editedAfterSelection: PropTypes.bool,
+    filterDisable: PropTypes.bool,
     selectedId: PropTypes.number,
     renderOption: PropTypes.oneOfType([
       PropTypes.element,
@@ -48,6 +49,7 @@ export default class OptionsPanel extends Component {
     truncate: false,
     multiline: false,
     editedAfterSelection: false,
+    filterDisable: false,
     selectedId: null,
     value: null,
     renderOption: undefined,
@@ -61,6 +63,7 @@ export default class OptionsPanel extends Component {
       values,
       selectedId,
       editedAfterSelection,
+      filterDisable,
       renderOption: RenderOption,
       theme,
       truncate,
@@ -72,19 +75,23 @@ export default class OptionsPanel extends Component {
       return null;
     }
 
-    const filtered = values.filter(
-      item => (
-        selectedId !== null && !editedAfterSelection
-          ? true
-          : item.filterString
-            ? ~item.filterString
-                .toLocaleLowerCase()
-                .indexOf(value.toLocaleLowerCase())
-            : ~item.title
-                .toLocaleLowerCase()
-                .indexOf(value.toLocaleLowerCase())
-      )
-    );
+    let filtered = [...values];
+
+    if (!filterDisable) {
+      filtered = values.filter(
+        item => (
+          selectedId !== null && !editedAfterSelection
+            ? true
+            : item.filterString
+              ? ~item.filterString
+                  .toLocaleLowerCase()
+                  .indexOf(value.toLocaleLowerCase())
+              : ~item.title
+                  .toLocaleLowerCase()
+                  .indexOf(value.toLocaleLowerCase())
+        ),
+      );
+    }
 
     return filtered.length ? (
       filtered.map(item => (

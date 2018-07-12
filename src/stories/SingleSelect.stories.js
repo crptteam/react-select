@@ -121,7 +121,7 @@ singleSelectElements.add('with error', () => (
     theme={THEMES.loginTheme}
     placeholder="Категория"
     onSelect={value => console.log(value)}
-    values = {[
+    values={[
       { id: 0, title: 'aaa' },
       { id: 1, title: 'bbb' },
       { id: 2, title: 'ccc' },
@@ -147,7 +147,6 @@ singleSelectElements.add('with isLoading', () => (
   />
 ));
 
-
 singleSelectElements.add('with withoutIcons', () => (
   <SingleSelect
     width="100%"
@@ -157,12 +156,31 @@ singleSelectElements.add('with withoutIcons', () => (
     placeholder="Категория"
     savePlaceholder
     onSelect={value => console.log(value)}
-    values = {[
+    values={[
       { id: 0, title: 'aaa' },
       { id: 1, title: 'bbb' },
       { id: 2, title: 'ccc' },
     ]}
     selectedId={0}
     withoutIcon
+  />
+));
+
+singleSelectElements.add('with filterDisable', () => (
+  <SingleSelect
+    width="100%"
+    name="category"
+    inline
+    theme={THEMES.loginTheme}
+    placeholder="Категория"
+    savePlaceholder
+    onSelect={value => console.log(value)}
+    values={[
+      { id: 0, title: 'aaa' },
+      { id: 1, title: 'bbb' },
+      { id: 2, title: 'ccc' },
+    ]}
+    selectedId={0}
+    filterDisable
   />
 ));
