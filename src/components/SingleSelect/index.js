@@ -90,20 +90,22 @@ class SingleSelect extends Component {
   }
 
   onChange = (event) => {
-    const { onChange } = this.props;
-    const { selectedId } = this.state;
+    const { onChange, onSelect } = this.props;
 
     if (onChange) { onChange(event.target.value); }
 
-    this.setState({
-      value: event.target.value,
-      editedAfterSelection: selectedId !== null,
-    });
+    this.setState({ value: event.target.value });
+    this.setState(newState => ({
+      selectedId: newState.value === '' ? null : newState.selectedId,
+      editedAfterSelection: newState.value !== '',
+    }));
 
+    if (event.target.value === '') { onSelect(null); }
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onSelect = (event, value) => {
+    const { onSelect } = this.props;
     this.setState({
       selectedId: value.id,
       isOpen: false,
@@ -116,7 +118,7 @@ class SingleSelect extends Component {
       } catch (e) {}
     }
 
-    this.props.onSelect(value);
+    onSelect(value);
     event.preventDefault();
   }
 
