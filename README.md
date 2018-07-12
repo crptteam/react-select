@@ -38,7 +38,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
 
-__Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render еруь. But some properties are special.
+__Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
 | Property name | Property type | Property description |
 |---|---|---|

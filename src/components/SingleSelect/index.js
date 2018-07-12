@@ -79,48 +79,36 @@ class SingleSelect extends Component {
       );
       option.selected = true;
     }
-    if (onRef) {
-      onRef(this);
-    }
+    if (onRef) { onRef(this); }
   }
 
   componentWillUnmount() {
     const { onRef } = this.props;
 
-    if (onRef) {
-      onRef(undefined);
-    }
-
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    if (onRef) { onRef(undefined); }
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onChange = (event) => {
     const { onChange } = this.props;
     const { selectedId } = this.state;
 
-    if (onChange) {
-      onChange(event.target.value);
-    }
+    if (onChange) { onChange(event.target.value); }
 
     this.setState({
       value: event.target.value,
       editedAfterSelection: selectedId !== null,
     });
 
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onSelect = (event, value) => {
     this.setState({
       selectedId: value.id,
-      value: value.value ? value.value : value.title,
       isOpen: false,
       isFocused: true,
-    });
+    }, () => this.updateValue({ isForce: true }));
 
     if (this.select) {
       try {
@@ -129,7 +117,6 @@ class SingleSelect extends Component {
     }
 
     this.props.onSelect(value);
-
     event.preventDefault();
   }
 
@@ -142,9 +129,7 @@ class SingleSelect extends Component {
 
     this.openOptionPanel();
 
-    if (selectedId !== null) {
-      event.target.select();
-    }
+    if (selectedId !== null) { event.target.select(); }
   }
 
   onKeyPress = () => {
@@ -168,32 +153,38 @@ class SingleSelect extends Component {
   }
 
   onMouseOut = () => {
-    const { selectedId, editedAfterSelection } = this.state;
-    const { values } = this.props;
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
 
     this.blurTimeout = setTimeout(() => {
       this.setState({ isOpen: false });
-
-      if (selectedId !== null && editedAfterSelection) {
-        this.setState({ value: values.find(item => item.id === selectedId).title });
-      }
-
-      if (selectedId === null) {
-        this.setState({ value: '' });
-      }
+      this.updateValue();
     }, ON_MOUSE_OUT_TIMEOUT_MS);
   }
 
   onMouseMove = () => {
-    if (this.blurTimeout) {
-      clearTimeout(this.blurTimeout);
-    }
+    if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onRef = (extRef) => { this.select = extRef; };
+
+  updateValue = (props) => {
+    const { selectedId, editedAfterSelection } = this.state;
+    const { values } = this.props;
+    const isValidId = values.find(item => item.id === selectedId) !== undefined;
+
+    let isForce = false;
+    if (props !== undefined) {
+      isForce = props.isForce ? props.isForce : false;
+    }
+
+    if (this.selectedId === null || !isValidId) {
+      this.setState({ value: '' });
+    } else if (editedAfterSelection || isForce) {
+      const value = values.find(item => item.id === selectedId);
+      const newValue = value.title || value.value || '';
+      this.setState({ value: newValue });
+    }
+  }
 
   openOptionPanel = () => {
     this.setState({
@@ -205,28 +196,18 @@ class SingleSelect extends Component {
   }
 
   closeOptionPanel = () => {
-    const { selectedId, editedAfterSelection } = this.state;
-    const { values } = this.props;
-
     this.setState(oldState => ({
       isOpen: false,
       isFocused: oldState.selectedId !== null,
     }));
 
-    if (selectedId !== null && editedAfterSelection) {
-      this.setState({ value: values.find(item => item.id === selectedId).title });
-    }
-
-    if (selectedId === null) {
-      this.setState({ value: '' });
-    }
+    this.updateValue();
   }
 
   clear() {
     const { onSelect } = this.props;
 
     this.setState(this.defaultState);
-
     if (onSelect) { onSelect(null); }
   }
 

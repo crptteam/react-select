@@ -56,6 +56,16 @@ export default class OptionsPanel extends Component {
     theme: {},
   }
 
+  isFiltered = ({ item, value }) => {
+    const filteredString = item.filterString
+      ? item.filterString
+      : item.title
+        ? item.title
+        : value;
+
+    return (filteredString.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) !== -1);
+  }
+
   renderValues = () => {
     const {
       isLoading,
@@ -76,21 +86,9 @@ export default class OptionsPanel extends Component {
     }
 
     let filtered = [...values];
-
-    if (!filterDisable) {
-      filtered = values.filter(
-        item => (
-          selectedId !== null && !editedAfterSelection
-            ? true
-            : item.filterString
-              ? ~item.filterString
-                  .toLocaleLowerCase()
-                  .indexOf(value.toLocaleLowerCase())
-              : ~item.title
-                  .toLocaleLowerCase()
-                  .indexOf(value.toLocaleLowerCase())
-        ),
-      );
+    if (!filterDisable
+      && !(selectedId !== null && !editedAfterSelection)) {
+      filtered = values.filter(item => this.isFiltered({ item, value }));
     }
 
     return filtered.length ? (
