@@ -62,8 +62,34 @@ export default class OptionsPanel extends Component {
       : item.title
         ? item.title
         : value;
+    if (typeof(filteredString) === 'string') {
+      return (filteredString.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) !== -1);
+    }
 
-    return (filteredString.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) !== -1);
+    return false;
+  }
+
+  renderItem = ({
+    item,
+    RenderOption,
+    truncate,
+    multiline,
+  }) => {
+    if (RenderOption) {
+      return (<RenderOption value={item} />);
+    }
+
+    const title = item.titleOption ? item.titleOption : item.title;
+    if ((typeof title) === 'function') {
+      const Item = title;
+      return <Item />;
+    }
+
+    return (
+      <SelectText truncate={truncate} multiline={multiline}>
+        {title}
+      </SelectText>
+    );
   }
 
   renderValues = () => {
@@ -96,17 +122,15 @@ export default class OptionsPanel extends Component {
         <SelectOption
           key={item.id}
           theme={theme}
-          custom={!!RenderOption}
+          custom
           onClick={event => onSelect(event, item)}
         >
-          {RenderOption
-            ? <RenderOption value={item} />
-            : (
-              <SelectText truncate={truncate} multiline={multiline}>
-                {item.title}
-              </SelectText>
-            )
-          }
+          {this.renderItem({
+            truncate,
+            multiline,
+            item,
+            RenderOption,
+          })}
         </SelectOption>
       ))
     ) : (

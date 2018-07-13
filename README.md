@@ -34,7 +34,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | truncate: Boolean | Long text truncation. Select options width will not exceed input width.  | `<SingleSelect truncate values=[{id:1, title: "very looong text"}] />` |
 | multiline: Boolean | Long text wrap. | `<SingleSelect multiline values=[{id:1, title: "very looong text"}] />` |
 | isLoading: Boolean | If true, there is "Загрузка..." displayed on drop list | |
-| renderValue: React element or function | It is shown inside select field (working with renderOption) | |
+| renderValue: React element or function | It is a function for rendering title to inputText. | See note 2.|
 | renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
 
@@ -45,12 +45,46 @@ __Note1__. Values is array of objects. You can add any properties and then use r
 | id (required) | Number | Must be unique integer |
 | value (required) | String, function or element| Value is returned on onSelect |
 | title (required) | String, function or element | Title is shown on the text field after the select |
+| titleText | String, function or element | Title for textField. If undefined title field is displayed | 
+| titleOption | String, function or element | Title for optionList. If undefined title field is displayed |
 | filterString | String | If defined filter process use this properties instead of title |
 | filterDisable | Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisable is true optionList isn't filtered |
 | withoutIcon | Boolean | Seach and BottomArrow Icons are not shown when properties is true |
 
+Examples of title:
+- simple title:
+```javscript
+title: 'empty'
+```
 
+- object title:
+```javscript
+title: (
+  <div>
+    Title <b>text</b> here
+  </div>)
+```
 
+- functional title:
+```javscript
+const titleFunction = (text) => {
+  <div>
+    Title <b>{text}</b> here
+  </div>)
+}
+```
+__Note 2__ 
+RenderOption. _Values_ item properties are passed to function using _value_ propertie. Renders function example: 
+RenderValue. _Values_ item properties are passed to function using _selected_ and _value_ (it's the same) propertie. Renders function example: 
+```javascript
+const renderOption = (props) => (
+  <div>
+    To option field:<br/>
+    <b>{props.value.prop1}</b><br/>
+    <i>{props.value.prop2}</i>
+  </div>
+);
+```
 
 ### MultiSelect
 

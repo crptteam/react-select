@@ -78,19 +78,66 @@ singleSelectElements.add('with HTML tags', () => (
 ));
 
 
-const testRenderOption = () => (
+singleSelectElements.add('with HTML tags and titleText and TitleOption', () => (
+  <SingleSelect
+    width="100%"
+    name="category"
+    inline
+    theme={THEMES.loginTheme}
+    placeholder="Категория"
+    onSelect={value => console.log(value)}
+    values={[
+      {
+        id: 1,
+        value: 'Попков Тимофей Антонович',
+        title: 'empty',
+        titleText: (
+          <div>
+            Title <b>text1</b> here
+          </div>
+        ),
+        titleOption: (
+          <div>
+            Title<br />
+            text1
+          </div>
+        ),
+      },
+      { id: 2, title: 'Просто текст' },
+      {
+        id: 3,
+        value: 'Попков Тимофей Антонович',
+        title: 'empty',
+        titleText: (
+          <div>
+            Title <b>text3</b> here
+          </div>
+        ),
+        titleOption: (
+          <div>
+            Title<br />
+            text3
+          </div>
+        ),
+      },
+    ]}
+    selectedId={1}
+  />
+));
+
+const testRenderOption = (props) => (
   <div>
-    Normal option text<br/>
-    <b>Bold option text</b><br/>
-    <i>Italy option text</i>
+    To option field:<br/>
+    <b>{props.value.prop1}</b><br/>
+    <i>{props.value.prop3}</i>
   </div>
 );
 
-const testRenderValue = () => (
+const testRenderValue = (props) => (
   <div>
-    Normal value text<br/>
-    <b>Bold value text</b><br/>
-    <i>Italy value text</i>
+    To value field:<br/>
+    <b>{props.selected.prop1}</b><br/>
+    <i>{props.selected.prop2}</i>
   </div>
 );
 
@@ -105,10 +152,59 @@ singleSelectElements.add('with renderOptions and renderValue', () => (
     renderOption={testRenderOption}
     renderValue={testRenderValue}
     values = {[
-      { id: 0, title: 'aaa' },
-      { id: 1, title: 'bbb' },
-      { id: 2, title: 'ccc' },
+      { id: 0, title: 'aaa', prop1: 'Id0. prop to', prop2: 'value', prop3: 'option' },
+      { id: 1, title: 'bbb', prop1: 'Id1. prop to', prop2: 'value', prop3: 'option' },
+      { id: 2, title: 'ccc', prop1: 'Id2. prop to', prop2: 'value', prop3: 'option' },
     ]}
+  />
+));
+
+
+const valueFunction1 = () => (
+  <div>
+    Rendered:<br/>
+    <b>Function</b><br/>
+    <i>valueFunction1</i>
+  </div>
+);
+
+const valueFunction2 = () => (
+  <div>
+    Rendered:<br/>
+    <b>Function</b><br/>
+    <i>valueFunction2</i>
+  </div>
+);
+
+const titleFunction1 = () => (
+  <div>
+    Rendered:<br/>
+    <b>Function</b><br/>
+    <i>titleFunction1</i>
+  </div>
+);
+
+const titleFunction2 = () => (
+  <div>
+    Rendered:<br/>
+    <b>Function</b><br/>
+    <i>titleFunction2</i>
+  </div>
+);
+
+singleSelectElements.add('with title and value functions', () => (
+  <SingleSelect
+    width="100%"
+    name="category"
+    inline
+    theme={THEMES.loginTheme}
+    placeholder="Категория"
+    onSelect={value => console.log(value)}
+    values={[
+      { id: 0, title: titleFunction1, value: valueFunction1 },
+      { id: 1, title: titleFunction2, value: valueFunction2 },
+    ]}
+    filterDisable
   />
 ));
 
