@@ -201,8 +201,8 @@ singleSelectElements.add('with title and value functions', () => (
     placeholder="Категория"
     onSelect={value => console.log(value)}
     values={[
-      { id: 0, title: titleFunction1, value: valueFunction1 },
-      { id: 1, title: titleFunction2, value: valueFunction2 },
+      { id: 0, title: titleFunction1, value: titleFunction1 },
+      { id: 1, title: titleFunction2, value: titleFunction2 },
     ]}
     filterDisable
   />

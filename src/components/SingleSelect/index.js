@@ -4,6 +4,9 @@ import { withTheme } from 'styled-components';
 
 import SingleSelectView from './SingleSelectView/index';
 import {
+  calcDefaultStateFromProps,
+} from './SingleSelectStaff';
+import {
   ON_BLUR_TIMEOUT_MS,
   ON_MOUSE_OUT_TIMEOUT_MS,
 } from './constants';
@@ -47,24 +50,21 @@ class SingleSelect extends Component {
     onChange: () => {},
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (state === undefined) { return null; }
+    if ((props.selectedId === undefined) && (state.defaultSelectedId === null)) {
+      return null;
+    }
+    if (props.selectedId !== state.defaultSelectedId) {
+      console.log('Recalc state: ', props.selectedId, state.defaultSelectedId);
+      return calcDefaultStateFromProps(props);
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
-
-    const {
-      selectedId,
-      values,
-    } = this.props;
-
-    const isValidId = values.find(item => item.id === selectedId) !== undefined;
-
-    this.defaultState = {
-      isOpen: false,
-      isFocused: isValidId,
-      selectedId: isValidId ? selectedId : null,
-      value: isValidId ? values.find(item => item.id === selectedId).title : '',
-      editedAfterSelection: false,
-    };
-
+    this.defaultState = calcDefaultStateFromProps(props);
     this.state = this.defaultState;
     this.blurTimeout = null;
     this.select = null;
@@ -214,6 +214,7 @@ class SingleSelect extends Component {
   }
 
   render() {
+    console.log('state = ', this.state);
     return (
       <SingleSelectView
         {...this.props}

@@ -43,10 +43,10 @@ __Note1__. Values is array of objects. You can add any properties and then use r
 | Property name | Property type | Property description |
 |---|---|---|
 | id (required) | Number | Must be unique integer |
-| value (required) | String, function or element| Value is returned on onSelect |
-| title (required) | String, function or element | Title is shown on the text field after the select |
-| titleText | String, function or element | Title for textField. If undefined title field is displayed | 
-| titleOption | String, function or element | Title for optionList. If undefined title field is displayed |
+| value (required) | String or element| Value is returned on onSelect |
+| title (required) | String or element | Title is shown on the text field after the select |
+| titleText | String or element | Title for textField. If undefined title field is displayed | 
+| titleOption | String or element | Title for optionList. If undefined title field is displayed |
 | filterString | String | If defined filter process use this properties instead of title |
 | filterDisable | Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisable is true optionList isn't filtered |
 | withoutIcon | Boolean | Seach and BottomArrow Icons are not shown when properties is true |
@@ -65,17 +65,9 @@ title: (
   </div>)
 ```
 
-- functional title:
-```javscript
-const titleFunction = (text) => {
-  <div>
-    Title <b>{text}</b> here
-  </div>)
-}
-```
 __Note 2__ 
 RenderOption. _Values_ item properties are passed to function using _value_ propertie. Renders function example: 
-RenderValue. _Values_ item properties are passed to function using _selected_ and _value_ (it's the same) propertie. Renders function example: 
+RenderValue. _Values_ item properties are passed to function using _selected_ and _value_ (it's the same) property. Renders function example: 
 ```javascript
 const renderOption = (props) => (
   <div>
