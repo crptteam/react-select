@@ -50,6 +50,7 @@ __Note1__. Values is array of objects. You can add any properties and then use r
 | filterString | String | If defined filter process use this properties instead of title |
 | filterDisable | Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisable is true optionList isn't filtered |
 | withoutIcon | Boolean | Seach and BottomArrow Icons are not shown when properties is true |
+| hideOptionsPanel | Boolean | If true optionList isn't shown |
 
 Examples of title:
 - simple title:

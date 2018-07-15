@@ -56,7 +56,6 @@ class SingleSelect extends Component {
       return null;
     }
     if (props.selectedId !== state.defaultSelectedId) {
-      console.log('Recalc state: ', props.selectedId, state.defaultSelectedId);
       return calcDefaultStateFromProps(props);
     }
     return null;
@@ -179,7 +178,7 @@ class SingleSelect extends Component {
       isForce = props.isForce ? props.isForce : false;
     }
 
-    if (this.selectedId === null || !isValidId) {
+    if (selectedId === null || !isValidId) {
       this.setState({ value: '' });
     } else if (editedAfterSelection || isForce) {
       const value = values.find(item => item.id === selectedId);
@@ -214,7 +213,6 @@ class SingleSelect extends Component {
   }
 
   render() {
-    console.log('state = ', this.state);
     return (
       <SingleSelectView
         {...this.props}

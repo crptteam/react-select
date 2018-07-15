@@ -280,3 +280,23 @@ singleSelectElements.add('with filterDisable', () => (
     filterDisable
   />
 ));
+
+
+singleSelectElements.add('with hideOptionsPanel', () => (
+  <SingleSelect
+    width="100%"
+    name="category"
+    inline
+    theme={THEMES.loginTheme}
+    placeholder="Категория"
+    savePlaceholder
+    onSelect={value => console.log(value)}
+    values={[
+      { id: 0, title: 'aaa' },
+      { id: 1, title: 'bbb' },
+      { id: 2, title: 'ccc' },
+    ]}
+    selectedId={0}
+    hideOptionsPanel
+  />
+));

@@ -75,8 +75,8 @@ const SingleSelectView = (props) => {
       />
 
       <InvisibleSelect name={name} innerRef={onRef}>
-        {values.map(item => (
-          <option key={item.id} value={item.id}>
+        {values.map((item, k) => (
+          <option key={`Key${k}${item.id}`} value={item.id}>
             {item.value ? item.value : item.title}
           </option>
         ))}

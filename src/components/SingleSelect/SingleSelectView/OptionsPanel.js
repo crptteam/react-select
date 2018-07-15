@@ -9,6 +9,7 @@ import DefaultLoading from '../../../styled/DefaultLoading';
 export default class OptionsPanel extends Component {
   static propTypes = {
     isOpen: PropTypes.bool,
+    hideOptionsPanel: PropTypes.bool,
     isLoading: PropTypes.bool,
     truncate: PropTypes.bool,
     multiline: PropTypes.bool,
@@ -45,6 +46,7 @@ export default class OptionsPanel extends Component {
 
   static defaultProps = {
     isOpen: false,
+    hideOptionsPanel: false,
     isLoading: false,
     truncate: false,
     multiline: false,
@@ -118,9 +120,9 @@ export default class OptionsPanel extends Component {
     }
 
     return filtered.length ? (
-      filtered.map(item => (
+      filtered.map((item, k) => (
         <SelectOption
-          key={item.id}
+          key={`Key${k}${item.id}`}
           theme={theme}
           custom
           onClick={event => onSelect(event, item)}
@@ -145,11 +147,12 @@ export default class OptionsPanel extends Component {
       isLoading,
       theme,
       isOpen,
+      hideOptionsPanel,
       truncate,
     } = this.props;
 
     return (
-      <SelectOptionsPanel theme={theme} visible={isOpen} truncate={truncate}>
+      <SelectOptionsPanel theme={theme} visible={isOpen && !hideOptionsPanel} truncate={truncate}>
         {isLoading ? (
           <DefaultLoading>
             Загрузка...
