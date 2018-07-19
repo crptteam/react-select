@@ -1,4 +1,4 @@
-import SingleSelect from './components/SingleSelect';
+import SingleSelect from './components/SingleSelect/index';
 import MultiSelect from './components/MultiSelect';
 import * as THEMES from './theme';
 
