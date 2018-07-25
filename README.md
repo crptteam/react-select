@@ -37,6 +37,9 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | renderValue: React element or function | It is a function for rendering title to inputText. | See note 2.|
 | renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
+| hideOptionsPanel: Boolean | If true optionList isn't shown | | |
+| withoutIcon: Boolean | Seach and BottomArrow Icons are not shown when properties is true | | |
+| filterDisabled: Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisabled is true optionList isn't filtered | | |
 
 __Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
@@ -48,9 +51,7 @@ __Note1__. Values is array of objects. You can add any properties and then use r
 | titleText | String or element | Title for textField. If undefined title field is displayed | 
 | titleOption | String or element | Title for optionList. If undefined title field is displayed |
 | filterString | String | If defined filter process use this properties instead of title |
-| filterDisable | Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisable is true optionList isn't filtered |
-| withoutIcon | Boolean | Seach and BottomArrow Icons are not shown when properties is true |
-| hideOptionsPanel | Boolean | If true optionList isn't shown |
+
 
 Examples of title:
 - simple title:
