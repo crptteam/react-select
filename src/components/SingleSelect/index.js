@@ -217,6 +217,7 @@ class SingleSelect extends Component {
       <SingleSelectView
         {...this.props}
         {...this.state}
+        isOpen={this.state.isOpen}
         onRef={this.onRef}
         renderValues={this.renderValues}
         onChange={this.onChange}

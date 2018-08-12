@@ -152,7 +152,7 @@ export default class OptionsPanel extends Component {
     } = this.props;
 
     return (
-      <SelectOptionsPanel theme={theme} visible={isOpen && !hideOptionsPanel} truncate={truncate}>
+      <SelectOptionsPanel isOpen={isOpen} theme={theme} visible={isOpen && !hideOptionsPanel} truncate={truncate}>
         {isLoading ? (
           <DefaultLoading>
             Загрузка...
