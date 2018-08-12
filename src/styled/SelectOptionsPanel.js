@@ -50,6 +50,16 @@ const SelectOptionsPanel = props => {
 
   Object.assign(theme, getThemeAsPlainObjectByKeys(mergedSelectOptionsPanel));
 
+  if (props.isOpen) {
+    Object.assign(
+      theme,
+      getThemeAsPlainObjectByKeys(
+        mergedSelectOptionsPanel,
+        "open"
+      )
+    );
+  }
+
   return <Elem {...theme} {...props} />;
 };
 

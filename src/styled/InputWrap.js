@@ -31,7 +31,7 @@ const InputWrap = props => {
 
   const theme = getThemeAsPlainObjectByKeys(
     merged,
-    props.disabled ? "disabled" : "main"
+    props.disabled ? "disabled" : "main",
   );
 
   const mergedInputWrap = innerMerge(
@@ -44,9 +44,19 @@ const InputWrap = props => {
     theme,
     getThemeAsPlainObjectByKeys(
       mergedInputWrap,
-      props.disabled ? "disabled" : props.isError ? "error" : "main"
+      props.disabled ? "disabled" : props.isError ? "error" : "main",
     )
   );
+
+  if (props.isOpen) {
+    Object.assign(
+      theme,
+      getThemeAsPlainObjectByKeys(
+        mergedInputWrap,
+        "open"
+      )
+    );
+  }
 
   return <Elem {...theme} {...props} />;
 };

@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import InputContent from './InputContent';
-import OptionsPanel from './OptionsPanel';
-import InputWrap from '../../../styled/InputWrap';
-import InvisibleSelect from '../../../styled/InvisibleSelect';
+import InputContent from "./InputContent";
+import OptionsPanel from "./OptionsPanel";
+import InputWrap from "../../../styled/InputWrap";
+import InvisibleSelect from "../../../styled/InvisibleSelect";
 
 const propTypes = {
   inline: PropTypes.bool,
@@ -14,16 +14,17 @@ const propTypes = {
       value: PropTypes.oneOfType([
         PropTypes.element,
         PropTypes.func,
-        PropTypes.string,
+        PropTypes.string
       ]),
       title: PropTypes.oneOfType([
         PropTypes.element,
         PropTypes.func,
-        PropTypes.string,
-      ]).isRequired,
-    }),
+        PropTypes.string
+      ]).isRequired
+    })
   ),
   name: PropTypes.string,
+  isOpen: PropTypes.bool.isRequired,
   onRef: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
@@ -32,20 +33,21 @@ const propTypes = {
   onClick: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func.isRequired,
   onMouseOut: PropTypes.func.isRequired,
-  onMouseMove: PropTypes.func.isRequired,
+  onMouseMove: PropTypes.func.isRequired
 };
 
 const defaultProps = {
   inline: false,
   name: undefined,
-  values: [],
+  values: []
 };
 
-const SingleSelectView = (props) => {
+const SingleSelectView = props => {
   const {
     inline,
     values,
     name,
+    isOpen,
     onRef,
     onChange,
     onSelect,
@@ -65,6 +67,7 @@ const SingleSelectView = (props) => {
       onMouseOut={onMouseOut}
       onMouseMove={onMouseMove}
       onBlur={onBlur}
+      isOpen={isOpen}
       {...otherProps}
     >
       <InputContent
@@ -82,7 +85,12 @@ const SingleSelectView = (props) => {
         ))}
       </InvisibleSelect>
 
-      <OptionsPanel onSelect={onSelect} values={values} {...otherProps} />
+      <OptionsPanel
+        onSelect={onSelect}
+        values={values}
+        isOpen={isOpen}
+        {...otherProps}
+      />
     </InputWrap>
   );
 };
