@@ -1,6 +1,6 @@
 {
   "name": "@crpt/react-select",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "react-select react component",
   "main": "lib/index.js",
   "module": "es/index.js",

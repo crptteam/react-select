@@ -19,6 +19,7 @@ const Elem = styled.label`
   padding-right: ${props => props.paddingRight};
   position: relative;
   cursor: ${props => props.cursor};
+  box-shadow: ${props => (props.boxShadow ? props.boxShadow : "")};
 `;
 
 const InputWrap = props => {

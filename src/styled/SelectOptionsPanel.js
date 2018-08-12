@@ -6,7 +6,7 @@ import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
   position: absolute;
-  top: 62px;
+  top: ${props => (props.top ? props.top : "62px")};
   left: -1px;
   min-width: ${props => (props.width ? props.width : "calc(100% + 2px)")};
   padding-top: ${props => props.paddingTop};
@@ -24,7 +24,7 @@ const Elem = styled.div`
   z-index: 3;
   background: ${props => props.background};
   border: ${props => props.border};
-
+  box-shadow: ${props => props.boxShadow ? props.boxShadow : ''};
   ${props => props.truncate ? css`
     width: ${props.width ? props.width : "calc(100% + 2px)"};
   ` : ""}
