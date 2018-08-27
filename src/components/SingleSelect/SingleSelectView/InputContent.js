@@ -146,7 +146,7 @@ export default class InputContent extends Component {
       ...otherProps
     } = this.props;
 
-    const DrawIcon = isFocused ? <Search /> : <BottomArrow />;
+    const DrawIcon = value ? <BottomArrow/> : isFocused ? <Search /> : <BottomArrow />;
 
     return (
       <InputContentWrap {...otherProps} theme={theme} onSelect={this.onSelectBlocker}>
