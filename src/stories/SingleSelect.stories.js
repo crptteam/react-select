@@ -22,7 +22,8 @@ singleSelectElements.add('simple and selectesId = 0', () => (
     name="category"
     inline
     theme={THEMES.loginTheme}
-    placeholder="Категория"
+    placeholder="Просто проверка длинного текст в placeholder, это норм? ок? есть перенос на некст строку?"
+    isError
     onSelect={value => console.log(value)}
     values={[
       { id: 0, title: 'Не лекарства' },

@@ -31,7 +31,9 @@ const Demo = () => (
       width="100%"
       name="category"
       inline
-      placeholder="Категория"
+      placeholder="Просто проверка длинного текст в placeholder, это норм? ок? есть перенос на некст строку?"
+      isError
+      savePlaceholder
       onSelect={value => console.log(value)}
       values={[
         {
