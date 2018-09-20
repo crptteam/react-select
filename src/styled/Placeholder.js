@@ -15,6 +15,10 @@ const Elem = styled.div`
   top: ${props => props.top};
   font-family: ${props => props.fontFamily};
   transition: all 0.3s ease;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
 `;
 
 const Placeholder = props => {
