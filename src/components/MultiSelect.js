@@ -13,7 +13,7 @@ import SelectedIconWrap from "../styled/SelectedIconWrap";
 import Placeholder from "../styled/Placeholder";
 import defaultTheme from "../theme/defaultTheme";
 
-import { BottomArrow, SelectCheckmark } from "../svg";
+import { BottomArrow, SelectCheckmark, Search } from "../svg";
 
 class MultiSelect extends Component {
   blurTimeout;
@@ -141,9 +141,26 @@ class MultiSelect extends Component {
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
 
+  renderIcon = (marginRight) => {
+    const { withoutIcon } = this.props;
+    const { isFocused, value } = this.state;
+
+    if (withoutIcon) return (null);
+    if (!value && isFocused) return <Search style={{marginRight}} />;
+    return <BottomArrow style={{marginRight}} />;
+  };
+
   render() {
 
-    const { theme, onSelect, values, name, onClick, ...otherProps } = this.props;
+    const {
+      theme,
+      onSelect,
+      values,
+      name,
+      onClick,
+      iconPosition = 'right',
+      ...otherProps
+    } = this.props;
 
     return (
       <InputWrap
@@ -155,12 +172,14 @@ class MultiSelect extends Component {
         component="Select"
       >
         <InputContentWrap {...otherProps}>
+          {iconPosition == 'left' && (this.renderIcon(16))}
           <Placeholder
             focused={this.state.isFocused}
             dispabled={this.props.disabled}
             isError={this.props.isError}
             theme={this.props.theme}
             isSaved={this.props.savePlaceholder}
+            left={iconPosition == 'left' ? 26 : 0}
           >
             {this.props.placeholder}
           </Placeholder>
@@ -173,9 +192,7 @@ class MultiSelect extends Component {
             theme={theme}
             component="Select"
           />
-
-          <BottomArrow />
-
+          {iconPosition == 'right' && (this.renderIcon())}
         </InputContentWrap>
 
         <InvisibleSelect
@@ -205,7 +222,8 @@ MultiSelect.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   values: PropTypes.array.isRequired,
-  selectedIds: PropTypes.array
+  selectedIds: PropTypes.array,
+  iconPosition: PropTypes.string,
 };
 
 MultiSelect.defaultProps = {
@@ -219,7 +237,8 @@ MultiSelect.defaultProps = {
       id: 1,
       title: "",
     }
-  ]
+  ],
+  iconPosition: 'right',
 };
 
 MultiSelect.displayName = "MultiSelect";

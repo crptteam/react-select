@@ -40,6 +40,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | hideOptionsPanel: Boolean | If true optionList isn't shown | | |
 | withoutIcon: Boolean | Seach and BottomArrow Icons are not shown when properties is true | | |
 | filterDisabled: Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisabled is true optionList isn't filtered | | |
+| iconPosition: String | Icon position. Default: 'right' | | |
 
 __Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
@@ -91,6 +92,7 @@ const renderOption = (props) => (
 | selectedIds: Array  | If passed, childs with id in selectedIds becomes selected. |  `<MultiSelect values=[{id:1, title: "value 1"}, {id: 2, title: "value 2"}] selectedIds={[1,2]}  />` |
 | truncate: Boolean | Long text truncation. Select options width will not exceed input width.  | `<MultiSelect truncate values=[{id:1, title: "very looong text"}] />` |
 | multiline: Boolean | Long text wrap. | `<MultiSelect multiline values=[{id:1, title: "very looong text"}] />` |
+| iconPosition: String | Icon position. Default: 'right' | | |
 
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
