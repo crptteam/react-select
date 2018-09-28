@@ -14,6 +14,7 @@ import Placeholder from "../styled/Placeholder";
 import defaultTheme from "../theme/defaultTheme";
 
 import { BottomArrow, SelectCheckmark, Search } from "../svg";
+import SelectOptionsPointer from '../styled/SelectOptionsPointer';
 
 class MultiSelect extends Component {
   blurTimeout;
@@ -159,8 +160,11 @@ class MultiSelect extends Component {
       name,
       onClick,
       iconPosition = 'right',
+      showPointer,
       ...otherProps
     } = this.props;
+
+    const panelMargin = showPointer ? '15px' : undefined;
 
     return (
       <InputWrap
@@ -207,7 +211,13 @@ class MultiSelect extends Component {
           ))}
         </InvisibleSelect>
 
-        <SelectOptionsPanel theme={theme} visible={this.state.isOpen} truncate={this.props.truncate}>
+        <SelectOptionsPanel
+          theme={theme}
+          visible={this.state.isOpen}
+          truncate={this.props.truncate}
+          marginTop={panelMargin}
+        >
+          {showPointer && <SelectOptionsPointer />}
           {this.renderValues()}
         </SelectOptionsPanel>
 
@@ -224,6 +234,7 @@ MultiSelect.propTypes = {
   values: PropTypes.array.isRequired,
   selectedIds: PropTypes.array,
   iconPosition: PropTypes.string,
+  showPointer: PropTypes.bool,
 };
 
 MultiSelect.defaultProps = {
@@ -239,6 +250,7 @@ MultiSelect.defaultProps = {
     }
   ],
   iconPosition: 'right',
+  showPointer: false,
 };
 
 MultiSelect.displayName = "MultiSelect";
