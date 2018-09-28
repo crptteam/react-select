@@ -9,6 +9,7 @@ const Elem = styled.div`
   top: ${props => (props.top ? props.top : "62px")};
   left: -1px;
   min-width: ${props => (props.width ? props.width : "calc(100% + 2px)")};
+  margin-top: ${props => props.marginTop};
   padding-top: ${props => props.paddingTop};
   padding-bottom: ${props => props.paddingBottom};
   js-display: flex;
@@ -24,6 +25,7 @@ const Elem = styled.div`
   z-index: 3;
   background: ${props => props.background};
   border: ${props => props.border};
+  border-radius: ${props => props.borderRadius};
   box-shadow: ${props => props.boxShadow ? props.boxShadow : ''};
   ${props => props.truncate ? css`
     width: ${props.width ? props.width : "calc(100% + 2px)"};
