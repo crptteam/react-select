@@ -39,6 +39,9 @@ export default {
       paddingTop: '8px',
       paddingBottom: '8px'
     },
+    SelectOptionsPointer: {
+      background: '#FFFFFF',
+    },
     placeholder: {
       normal: "#ACADB5",
       disabled: "#ACADB5",

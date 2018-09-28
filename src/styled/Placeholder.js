@@ -13,6 +13,7 @@ const Elem = styled.div`
   color: ${props => props.color};
   font-weight: ${props => props.fontWeight};
   top: ${props => props.top};
+  left: ${props => props.left ? `${props.left}px` : '0'};
   font-family: ${props => props.fontFamily};
   transition: all 0.3s ease;
   text-overflow: ellipsis;

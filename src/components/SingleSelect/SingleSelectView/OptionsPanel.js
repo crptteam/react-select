@@ -5,6 +5,7 @@ import SelectOption from '../../../styled/SelectOption';
 import SelectText from '../../../styled/SelectText';
 import SelectOptionsPanel from '../../../styled/SelectOptionsPanel';
 import DefaultLoading from '../../../styled/DefaultLoading';
+import SelectOptionsPointer from '../../../styled/SelectOptionsPointer';
 
 export default class OptionsPanel extends Component {
   static propTypes = {
@@ -42,6 +43,7 @@ export default class OptionsPanel extends Component {
     ]),
     theme: PropTypes.object,
     onSelect: PropTypes.func.isRequired,
+    showPointer: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -56,6 +58,7 @@ export default class OptionsPanel extends Component {
     value: null,
     renderOption: undefined,
     theme: {},
+    showPointer: false,
   }
 
   isFiltered = ({ item, value }) => {
@@ -149,10 +152,20 @@ export default class OptionsPanel extends Component {
       isOpen,
       hideOptionsPanel,
       truncate,
+      showPointer,
     } = this.props;
 
+    const panelMargin = showPointer ? '15px' : undefined;
+
     return (
-      <SelectOptionsPanel isOpen={isOpen} theme={theme} visible={isOpen && !hideOptionsPanel} truncate={truncate}>
+      <SelectOptionsPanel
+        isOpen={isOpen}
+        theme={theme}
+        visible={isOpen && !hideOptionsPanel}
+        truncate={truncate}
+        marginTop={panelMargin}
+      >
+        {showPointer && <SelectOptionsPointer />}
         {isLoading ? (
           <DefaultLoading>
             Загрузка...

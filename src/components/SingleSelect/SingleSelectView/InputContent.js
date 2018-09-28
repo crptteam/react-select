@@ -47,6 +47,7 @@ export default class InputContent extends Component {
     onClick: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onClickRenderWrap: PropTypes.func.isRequired,
+    iconPosition: PropTypes.string,
   };
 
   static defaultProps = {
@@ -61,11 +62,12 @@ export default class InputContent extends Component {
     values: [],
     value: undefined,
     theme: {},
+    iconPosition: 'right',
   };
 
   onSelectBlocker = (event) => {
     event.stopPropagation();
-  }
+  };
 
   renderItem = ({
     item,
@@ -123,7 +125,15 @@ export default class InputContent extends Component {
         onClick={onClick}
       />
     );
-  }
+  };
+
+  renderIcon = (marginRight) => {
+    const { value, isFocused, withoutIcon } = this.props;
+
+    if (withoutIcon) return (null);
+    if (!value && isFocused) return <Search style={{marginRight}} />;
+    return <BottomArrow style={{marginRight}} />;
+  };
 
   render() {
     const {
@@ -134,7 +144,6 @@ export default class InputContent extends Component {
       savePlaceholder,
       renderValue: RenderValue,
       selectedId,
-      withoutIcon,
       value,
       values,
       truncate,
@@ -143,19 +152,20 @@ export default class InputContent extends Component {
       onClick,
       onClickRenderWrap,
       theme,
+      iconPosition,
       ...otherProps
     } = this.props;
 
-    const DrawIcon = value ? <BottomArrow/> : isFocused ? <Search /> : <BottomArrow />;
-
     return (
       <InputContentWrap {...otherProps} theme={theme} onSelect={this.onSelectBlocker}>
+        {iconPosition == 'left' && this.renderIcon(16)}
         <Placeholder
           focused={isFocused}
           disabled={disabled}
           isError={isError}
           theme={theme}
           isSaved={savePlaceholder}
+          left={iconPosition == 'left' ? 26 : 0}
         >
           {placeholder}
         </Placeholder>
@@ -174,7 +184,7 @@ export default class InputContent extends Component {
           onClick,
         })}
 
-        {withoutIcon ? null : DrawIcon }
+        {iconPosition == 'right' && this.renderIcon()}
       </InputContentWrap>
     );
   }
