@@ -47,6 +47,7 @@ export default class InputContent extends Component {
     onClick: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
     onClickRenderWrap: PropTypes.func.isRequired,
+    onEnterKey: PropTypes.func.isRequired,
     iconPosition: PropTypes.string,
   };
 
@@ -68,6 +69,14 @@ export default class InputContent extends Component {
   onSelectBlocker = (event) => {
     event.stopPropagation();
   };
+
+  onKeyPress = (e) => {
+    if (e.charCode === 13 || e.keyCode === 13 || e.key == 'Enter') {
+      this.props.onEnterKey(this.props.value);
+    }
+  };
+
+  onBlur = () => this.props.onEnterKey(this.props.value);
 
   renderItem = ({
     item,
@@ -123,6 +132,8 @@ export default class InputContent extends Component {
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}
+        onKeyPress={this.onKeyPress}
+        onBlur={this.onBlur}
       />
     );
   };

@@ -37,6 +37,7 @@ class SingleSelect extends Component {
     onRef: PropTypes.func,
     onSelect: PropTypes.func,
     onChange: PropTypes.func,
+    onEnterKey: PropTypes.func,
   };
 
   static defaultProps = {
@@ -48,6 +49,7 @@ class SingleSelect extends Component {
     onRef: () => {},
     onSelect: () => {},
     onChange: () => {},
+    onEnterKey: () => {},
   };
 
   static getDerivedStateFromProps(props, state) {

@@ -34,6 +34,7 @@ const Demo = () => (
       placeholder="Просто проверка длинного текст в placeholder, это норм? ок? есть перенос на некст строку?"
       isError
       savePlaceholder
+      onEnterKey={(e) => console.log(e)}
       onSelect={value => console.log(value)}
       values={[
         {
