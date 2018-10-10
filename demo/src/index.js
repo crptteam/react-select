@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 
 import defaultTheme from '../../src/theme/defaultTheme';
 import { SingleSelect } from '../../src';
+import MultiSelect from '../../src/components/MultiSelect';
 
 
 const testRenderOption = () => (
@@ -56,6 +57,18 @@ const Demo = () => (
         { id: 2, title: 'ccc' },
       ]}
       selectedId={1}
+    />
+    <MultiSelect
+      width="100%"
+      name="category"
+      inline
+      placeholder="Категория"
+      onSelect={value => console.log(value)}
+      values={[
+        {
+          id: 1, title: 'Не лекарства' },
+        { id: 2, title: 'Лекарства' },
+      ]}
     />
   </div>
 );
