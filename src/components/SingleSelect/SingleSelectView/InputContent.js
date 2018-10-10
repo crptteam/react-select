@@ -7,11 +7,12 @@ import InputElem from '../../../styled/InputElem';
 import RenderWrap from '../../../styled/RenderWrap';
 import Placeholder from '../../../styled/Placeholder';
 
-import { BottomArrow, Search } from '../../../svg';
+import { BottomArrow, Search, Cross } from '../../../svg';
 
 export default class InputContent extends Component {
   static propTypes = {
     isFocused: PropTypes.bool,
+    isOpen: PropTypes.bool,
     isError: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -48,11 +49,13 @@ export default class InputContent extends Component {
     onChange: PropTypes.func.isRequired,
     onClickRenderWrap: PropTypes.func.isRequired,
     onEnterKey: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     iconPosition: PropTypes.string,
   };
 
   static defaultProps = {
     isFocused: false,
+    isOpen: false,
     isError: false,
     disabled: false,
     placeholder: '',
@@ -139,9 +142,11 @@ export default class InputContent extends Component {
   };
 
   renderIcon = (marginRight) => {
-    const { value, isFocused, withoutIcon } = this.props;
+    const { value, isFocused, isOpen, withoutIcon, onClear } = this.props;
 
     if (withoutIcon) return (null);
+
+    if (value && !isOpen) return <Cross style={{marginRight}} onClick={onClear} />;
     if (!value && isFocused) return <Search style={{marginRight}} />;
     return <BottomArrow style={{marginRight}} />;
   };

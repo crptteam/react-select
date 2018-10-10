@@ -207,12 +207,15 @@ class SingleSelect extends Component {
     this.updateValue();
   }
 
-  clear() {
+  clear = () => {
     const { onSelect } = this.props;
 
-    this.setState(this.defaultState);
+    this.setState({
+      value: '',
+      selectedId: null,
+    });
     if (onSelect) { onSelect(null); }
-  }
+  };
 
   render() {
     return (
@@ -231,6 +234,7 @@ class SingleSelect extends Component {
         onClickRenderWrap={this.onClickRenderWrap}
         onMouseOut={this.onMouseOut}
         onMouseMove={this.onMouseMove}
+        onClear={this.clear}
       />
     );
   }

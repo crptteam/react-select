@@ -15,6 +15,7 @@ import defaultTheme from "../theme/defaultTheme";
 
 import { BottomArrow, SelectCheckmark, Search } from "../svg";
 import SelectOptionsPointer from '../styled/SelectOptionsPointer';
+import Cross from '../svg/cross.svg';
 
 class MultiSelect extends Component {
   blurTimeout;
@@ -61,7 +62,7 @@ class MultiSelect extends Component {
     this.props.onRef && this.props.onRef(undefined);
   }
 
-  clear() {
+  clear = () => {
     this.setState({
       value: "",
       selectedIds: [],
@@ -69,7 +70,7 @@ class MultiSelect extends Component {
     });
 
     this.props.onSelect && this.props.onSelect([]);
-  }
+  };
 
   getFilteredValues(selectedIds, values) {
     return values.filter(v => ~selectedIds.indexOf(v.id));
@@ -144,9 +145,11 @@ class MultiSelect extends Component {
 
   renderIcon = (marginRight) => {
     const { withoutIcon } = this.props;
-    const { isFocused, value } = this.state;
+    const { isFocused, value, isOpen } = this.state;
 
     if (withoutIcon) return (null);
+
+    if (value && !isOpen) return <Cross style={{marginRight}} onClick={this.clear} />;
     if (!value && isFocused) return <Search style={{marginRight}} />;
     return <BottomArrow style={{marginRight}} />;
   };

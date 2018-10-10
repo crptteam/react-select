@@ -74,6 +74,7 @@ const SingleSelectView = props => {
         values={values}
         onClick={onClick}
         onChange={onChange}
+        isOpen={isOpen}
         {...otherProps}
       />
 
