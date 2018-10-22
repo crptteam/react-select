@@ -30,6 +30,7 @@ const Elem = styled.div`
   color: ${props => props.color};
   font-family: ${props => props.fontFamily};
   font-weight: ${props => props.fontWeight};
+  background: ${props => props.background};
   &:hover {
     background: ${props => props.hoverBackground};
     color: ${props => props.hoverColor};

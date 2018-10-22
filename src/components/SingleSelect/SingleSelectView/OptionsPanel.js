@@ -44,6 +44,7 @@ export default class OptionsPanel extends Component {
     theme: PropTypes.object,
     onSelect: PropTypes.func.isRequired,
     showPointer: PropTypes.bool,
+    noValuesText: PropTypes.string,
   }
 
   static defaultProps = {
@@ -59,6 +60,7 @@ export default class OptionsPanel extends Component {
     renderOption: undefined,
     theme: {},
     showPointer: false,
+    noValuesText: '<пусто>'
   }
 
   isFiltered = ({ item, value }) => {
@@ -110,6 +112,7 @@ export default class OptionsPanel extends Component {
       truncate,
       multiline,
       onSelect,
+      noValuesText,
     } = this.props;
 
     if (isLoading) {
@@ -127,6 +130,7 @@ export default class OptionsPanel extends Component {
         <SelectOption
           key={`Key${k}${item.id}`}
           theme={theme}
+          disabled={item.disabled}
           custom
           onClick={event => onSelect(event, item)}
         >
@@ -140,7 +144,7 @@ export default class OptionsPanel extends Component {
       ))
     ) : (
       <SelectOption>
-        &lt;пусто&gt;
+        {noValuesText}
       </SelectOption>
     );
   }
