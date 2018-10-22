@@ -77,6 +77,7 @@ class MultiSelect extends Component {
   }
 
   onSelect(e, v) {
+    if (v.disabled) return;
 
     const newSelectedIds = ~this.state.selectedIds.indexOf(v.id)
       ? [
@@ -121,18 +122,31 @@ class MultiSelect extends Component {
   }
 
   renderValues() {
-    return this.props.values.map(v => (
-      <SelectOption theme={this.props.theme} key={v.id} onClick={e => this.onSelect(e, v)} multi>
-        <SelectText truncate={this.props.truncate} multiline={this.props.multiline}>{v.title}</SelectText>
-        <SelectedIconWrap>
-          {~this.state.selectedIds.indexOf(v.id) ? (
-            <SelectCheckmark />
-          ) : (
-            ""
-          )}
-        </SelectedIconWrap>
-      </SelectOption>
-    ));
+    const { values, noValuesText } = this.props;
+    return values.length
+      ? values.map(v =>
+          <SelectOption
+            theme={this.props.theme}
+            key={v.id}
+            disabled={v.disabled}
+            onClick={e => this.onSelect(e, v)}
+            multi
+          >
+            <SelectText truncate={this.props.truncate} multiline={this.props.multiline}>{v.title}</SelectText>
+            <SelectedIconWrap>
+              {~this.state.selectedIds.indexOf(v.id) ? (
+                <SelectCheckmark />
+              ) : (
+                ""
+              )}
+            </SelectedIconWrap>
+          </SelectOption>
+        )
+      : (
+        <SelectOption>
+          {noValuesText}
+        </SelectOption>
+      )
   }
 
   onFocus(e) {
@@ -238,6 +252,7 @@ MultiSelect.propTypes = {
   selectedIds: PropTypes.array,
   iconPosition: PropTypes.string,
   showPointer: PropTypes.bool,
+  noValuesText: PropTypes.string,
 };
 
 MultiSelect.defaultProps = {
@@ -254,6 +269,7 @@ MultiSelect.defaultProps = {
   ],
   iconPosition: 'right',
   showPointer: false,
+  noValuesText: '<пусто>',
 };
 
 MultiSelect.displayName = "MultiSelect";

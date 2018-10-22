@@ -42,7 +42,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | filterDisabled: Boolean | When you are writing in text field, option list is filtered using typing text. If filterDisabled is true optionList isn't filtered | | |
 | iconPosition: String | Icon position. Default: 'right' | | |
 | showPointer: Boolean | Show options panel dialog pointer. Default: false | | |
-
+| noValuesText: String | Show text if values empty | | |
 __Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
 | Property name | Property type | Property description |
@@ -53,6 +53,7 @@ __Note1__. Values is array of objects. You can add any properties and then use r
 | titleText | String or element | Title for textField. If undefined title field is displayed | 
 | titleOption | String or element | Title for optionList. If undefined title field is displayed |
 | filterString | String | If defined filter process use this properties instead of title |
+| disabled | Boolean | Can't select option if disabled |
 
 
 Examples of title:
@@ -95,6 +96,7 @@ const renderOption = (props) => (
 | multiline: Boolean | Long text wrap. | `<MultiSelect multiline values=[{id:1, title: "very looong text"}] />` |
 | iconPosition: String | Icon position. Default: 'right' | | |
 | showPointer: Boolean | Show options panel dialog pointer. Default: false | | |
+| noValuesText: String | Show text if values empty | | |
 
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square

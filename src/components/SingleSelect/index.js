@@ -107,6 +107,8 @@ class SingleSelect extends Component {
 
   onSelect = (event, value) => {
     const { onSelect } = this.props;
+    if (value.disabled) return;
+
     this.setState({
       selectedId: value.id,
       isOpen: false,

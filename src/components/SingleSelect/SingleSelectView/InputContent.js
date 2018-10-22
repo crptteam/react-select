@@ -142,11 +142,11 @@ export default class InputContent extends Component {
   };
 
   renderIcon = (marginRight) => {
-    const { value, isFocused, isOpen, withoutIcon, onClear } = this.props;
+    const { value, isFocused, withoutIcon, onClear } = this.props;
 
     if (withoutIcon) return (null);
 
-    if (value && !isOpen) return <Cross style={{marginRight}} onClick={onClear} />;
+    if (value) return <Cross style={{marginRight}} onClick={onClear} />;
     if (!value && isFocused) return <Search style={{marginRight}} />;
     return <BottomArrow style={{marginRight}} />;
   };
