@@ -14,6 +14,8 @@ const Elem = styled.div`
   padding-bottom: ${props => props.paddingBottom};
   js-display: flex;
   display: ${props => (props.visible ? "flex" : "none")};
+  overflow-y: auto;
+  max-height: ${props => props.maxHeight};
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
