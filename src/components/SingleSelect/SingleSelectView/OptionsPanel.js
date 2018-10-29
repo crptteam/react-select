@@ -45,6 +45,7 @@ export default class OptionsPanel extends Component {
     onSelect: PropTypes.func.isRequired,
     showPointer: PropTypes.bool,
     noValuesText: PropTypes.string,
+    onRef: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -157,6 +158,7 @@ export default class OptionsPanel extends Component {
       hideOptionsPanel,
       truncate,
       showPointer,
+      onRef,
     } = this.props;
 
     const panelMargin = showPointer ? '15px' : undefined;
@@ -168,6 +170,7 @@ export default class OptionsPanel extends Component {
         visible={isOpen && !hideOptionsPanel}
         truncate={truncate}
         marginTop={panelMargin}
+        innerRef={onRef}
       >
         {showPointer && <SelectOptionsPointer />}
         {isLoading ? (

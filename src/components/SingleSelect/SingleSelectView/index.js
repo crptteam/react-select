@@ -26,6 +26,7 @@ const propTypes = {
   name: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRef: PropTypes.func.isRequired,
+  onOptionsRef: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
@@ -49,6 +50,7 @@ const SingleSelectView = props => {
     name,
     isOpen,
     onRef,
+    onOptionsRef,
     onChange,
     onSelect,
     onFocus,
@@ -88,6 +90,7 @@ const SingleSelectView = props => {
 
       <OptionsPanel
         onSelect={onSelect}
+        onRef={onOptionsRef}
         values={values}
         isOpen={isOpen}
         {...otherProps}

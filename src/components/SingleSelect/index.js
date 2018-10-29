@@ -38,6 +38,7 @@ class SingleSelect extends Component {
     onSelect: PropTypes.func,
     onChange: PropTypes.func,
     onEnterKey: PropTypes.func,
+    onTogglePanel: PropTypes.func,
   };
 
   static defaultProps = {
@@ -50,6 +51,7 @@ class SingleSelect extends Component {
     onSelect: () => {},
     onChange: () => {},
     onEnterKey: () => {},
+    onTogglePanel: () => {},
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -106,14 +108,17 @@ class SingleSelect extends Component {
   }
 
   onSelect = (event, value) => {
-    const { onSelect } = this.props;
+    const { onSelect, onTogglePanel } = this.props;
     if (value.disabled) return;
 
     this.setState({
       selectedId: value.id,
       isOpen: false,
       isFocused: true,
-    }, () => this.updateValue({ isForce: true }));
+    }, () => {
+      onTogglePanel(false);
+      this.updateValue({ isForce: true });
+    });
 
     if (this.select) {
       try {
@@ -151,17 +156,19 @@ class SingleSelect extends Component {
   }
 
   onClickRenderWrap = () => {
+    const { onTogglePanel } = this.props;
     const { isOpen } = this.state;
-    this.setState({ isOpen: !isOpen });
+    this.setState({ isOpen: !isOpen }, () => onTogglePanel(!isOpen));
 
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   onMouseOut = () => {
+    const { onTogglePanel } = this.props;
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
 
     this.blurTimeout = setTimeout(() => {
-      this.setState({ isOpen: false });
+      this.setState({ isOpen: false }, () => onTogglePanel(false));
       this.updateValue();
     }, ON_MOUSE_OUT_TIMEOUT_MS);
   }
@@ -171,6 +178,8 @@ class SingleSelect extends Component {
   }
 
   onRef = (extRef) => { this.select = extRef; };
+
+  onOptionsRef = (extRef) => { this.optionsPanel = extRef; };
 
   updateValue = (props) => {
     const { selectedId, editedAfterSelection } = this.state;
@@ -192,19 +201,21 @@ class SingleSelect extends Component {
   }
 
   openOptionPanel = () => {
+    const { onTogglePanel } = this.props;
     this.setState({
       isOpen: true,
       isFocused: true,
-    });
+    }, () => onTogglePanel(this.select));
 
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
 
   closeOptionPanel = () => {
+    const { onTogglePanel } = this.props;
     this.setState(oldState => ({
       isOpen: false,
       isFocused: oldState.selectedId !== null,
-    }));
+    }), () => onTogglePanel(false));
 
     this.updateValue();
   }
@@ -226,6 +237,7 @@ class SingleSelect extends Component {
         {...this.state}
         isOpen={this.state.isOpen}
         onRef={this.onRef}
+        onOptionsRef={this.onOptionsRef}
         renderValues={this.renderValues}
         onChange={this.onChange}
         onSelect={this.onSelect}

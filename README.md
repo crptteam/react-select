@@ -43,6 +43,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | iconPosition: String | Icon position. Default: 'right' | | |
 | showPointer: Boolean | Show options panel dialog pointer. Default: false | | |
 | noValuesText: String | Show text if values empty | | |
+| onTogglePanel: Function | Callback on toggle Options Panel | | |
 __Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
 | Property name | Property type | Property description |
@@ -97,6 +98,7 @@ const renderOption = (props) => (
 | iconPosition: String | Icon position. Default: 'right' | | |
 | showPointer: Boolean | Show options panel dialog pointer. Default: false | | |
 | noValuesText: String | Show text if values empty | | |
+| onTogglePanel: Function | Callback on toggle Options Panel | | |
 
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
