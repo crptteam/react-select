@@ -117,7 +117,7 @@ class MultiSelect extends Component {
       this.setState(oldState => ({
         isOpen: false,
         isFocused: !!oldState.selectedIds.length,
-      }));
+      }), () => this.props.onTogglePanel(false));
     }, 200);
   }
 
@@ -152,7 +152,7 @@ class MultiSelect extends Component {
   onFocus(e) {
     this.setState({
       isOpen: true
-    });
+    }, () => this.props.onTogglePanel(true));
 
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
@@ -230,6 +230,7 @@ class MultiSelect extends Component {
 
         <SelectOptionsPanel
           theme={theme}
+          innerRef={el => { this.optionsPanel = el; }}
           visible={this.state.isOpen}
           truncate={this.props.truncate}
           marginTop={panelMargin}
@@ -253,6 +254,7 @@ MultiSelect.propTypes = {
   iconPosition: PropTypes.string,
   showPointer: PropTypes.bool,
   noValuesText: PropTypes.string,
+  onTogglePanel: PropTypes.func,
 };
 
 MultiSelect.defaultProps = {
@@ -270,6 +272,7 @@ MultiSelect.defaultProps = {
   iconPosition: 'right',
   showPointer: false,
   noValuesText: '<пусто>',
+  onTogglePanel: () => {},
 };
 
 MultiSelect.displayName = "MultiSelect";
