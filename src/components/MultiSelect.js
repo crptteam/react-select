@@ -20,6 +20,7 @@ import Cross from '../svg/cross.svg';
 class MultiSelect extends Component {
   blurTimeout;
   select;
+  open;
 
   constructor(props) {
     super(props);
@@ -117,7 +118,11 @@ class MultiSelect extends Component {
       this.setState(oldState => ({
         isOpen: false,
         isFocused: !!oldState.selectedIds.length,
-      }), () => this.props.onTogglePanel(false));
+      }));
+      if (this.open) {
+        this.open = false;
+        this.props.onTogglePanel(false);
+      }
     }, 200);
   }
 
@@ -152,7 +157,12 @@ class MultiSelect extends Component {
   onFocus(e) {
     this.setState({
       isOpen: true
-    }, () => this.props.onTogglePanel(true));
+    });
+
+    if (!this.open) {
+      this.open = true;
+      this.props.onTogglePanel(true);
+    }
 
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
