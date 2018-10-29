@@ -65,6 +65,8 @@ class SingleSelect extends Component {
     return null;
   }
 
+  open;
+
   constructor(props) {
     super(props);
     this.defaultState = calcDefaultStateFromProps(props);
@@ -116,7 +118,11 @@ class SingleSelect extends Component {
       isOpen: false,
       isFocused: true,
     }, () => {
-      onTogglePanel(false);
+      if (this.open) {
+        this.open = false;
+        onTogglePanel(false);
+      }
+
       this.updateValue({ isForce: true });
     });
 
@@ -158,7 +164,12 @@ class SingleSelect extends Component {
   onClickRenderWrap = () => {
     const { onTogglePanel } = this.props;
     const { isOpen } = this.state;
-    this.setState({ isOpen: !isOpen }, () => onTogglePanel(!isOpen));
+    this.setState({ isOpen: !isOpen });
+
+    if (this.open !== !isOpen) {
+      this.open = !isOpen;
+      onTogglePanel(!isOpen);
+    }
 
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
@@ -168,7 +179,12 @@ class SingleSelect extends Component {
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
 
     this.blurTimeout = setTimeout(() => {
-      this.setState({ isOpen: false }, () => onTogglePanel(false));
+      this.setState({ isOpen: false });
+
+      if (this.open) {
+        this.open = false;
+        onTogglePanel(false);
+      }
       this.updateValue();
     }, ON_MOUSE_OUT_TIMEOUT_MS);
   }
@@ -205,7 +221,12 @@ class SingleSelect extends Component {
     this.setState({
       isOpen: true,
       isFocused: true,
-    }, () => onTogglePanel(this.select));
+    });
+
+    if (!this.open) {
+      this.open = true;
+      onTogglePanel(true);
+    }
 
     if (this.blurTimeout) { clearTimeout(this.blurTimeout); }
   }
@@ -215,7 +236,12 @@ class SingleSelect extends Component {
     this.setState(oldState => ({
       isOpen: false,
       isFocused: oldState.selectedId !== null,
-    }), () => onTogglePanel(false));
+    }));
+
+    if (this.open) {
+      this.open = false;
+      onTogglePanel(false);
+    }
 
     this.updateValue();
   }
