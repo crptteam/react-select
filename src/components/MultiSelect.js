@@ -11,7 +11,6 @@ import SelectText from "../styled/SelectText";
 import InvisibleSelect from "../styled/InvisibleSelect";
 import SelectedIconWrap from "../styled/SelectedIconWrap";
 import Placeholder from "../styled/Placeholder";
-import defaultTheme from "../theme/defaultTheme";
 
 import { BottomArrow, SelectCheckmark, Search } from "../svg";
 import SelectOptionsPointer from '../styled/SelectOptionsPointer';
@@ -196,7 +195,6 @@ class MultiSelect extends Component {
     return (
       <InputWrap
         inline={this.props.inline === false ? this.props.inline : true}
-        {...otherProps}
         onBlur={this.onBlur}
         onClick={this.onClick}
         theme={theme}
@@ -256,7 +254,6 @@ class MultiSelect extends Component {
 
 MultiSelect.propTypes = {
   className: PropTypes.string,
-  theme: PropTypes.object,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   values: PropTypes.array.isRequired,
@@ -265,11 +262,11 @@ MultiSelect.propTypes = {
   showPointer: PropTypes.bool,
   noValuesText: PropTypes.string,
   onTogglePanel: PropTypes.func,
+  inline: PropTypes.bool.isRequired,
 };
 
 MultiSelect.defaultProps = {
   disabled: false,
-  theme: defaultTheme,
   onSelect: val => null,
   placeholder: "",
   selectedIds: null,
@@ -283,6 +280,7 @@ MultiSelect.defaultProps = {
   showPointer: false,
   noValuesText: '<пусто>',
   onTogglePanel: () => {},
+  inline: false,
 };
 
 MultiSelect.displayName = "MultiSelect";

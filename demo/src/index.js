@@ -25,7 +25,7 @@ class Demo extends React.Component {
         <SingleSelect
           onChange={this.onChange}
           isLoading={this.state.isLoading}
-          placeholder="Enter Text"
+          placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
           savePlaceholder
           onSelect={console.log}
           values={this.state.values}
@@ -33,6 +33,8 @@ class Demo extends React.Component {
         <MultiSelect
           onChange={this.onChange}
           isLoading={this.state.isLoading}
+          placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
+          savePlaceholder
           onSelect={console.log}
           values={this.state.values}
         />
