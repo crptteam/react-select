@@ -1,6 +1,6 @@
 {
   "name": "@crpt/react-select",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "react-select react component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -70,7 +70,8 @@
   "contributors": [
     "Nikita Solomennikov",
     "Alexander Berezovsky",
-    "Aleksey Zakharov"
+    "Aleksey Zakharov",
+    "Ivan Oshchepkov"
   ],
   "homepage": "https://github.com/crptteam/react-select",
   "license": "MIT",
