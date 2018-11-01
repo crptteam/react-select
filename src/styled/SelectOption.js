@@ -55,7 +55,13 @@ const SelectOption = props => {
     (props.theme && props.theme.Select && props.theme.Select.SelectOption) || {}
   );
 
-  Object.assign(theme, getThemeAsPlainObjectByKeys(mergedSelectOption));
+  Object.assign(
+    theme,
+    getThemeAsPlainObjectByKeys(
+      mergedSelectOption,
+      props.disabled ? "disabled" : undefined
+    )
+  );
 
   return <Elem {...theme} {...props} />;
 };
