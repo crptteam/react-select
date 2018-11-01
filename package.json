@@ -70,7 +70,8 @@
   "contributors": [
     "Nikita Solomennikov",
     "Alexander Berezovsky",
-    "Aleksey Zakharov"
+    "Aleksey Zakharov",
+    "Ivan Oshchepkov"
   ],
   "homepage": "https://github.com/crptteam/react-select",
   "license": "MIT",

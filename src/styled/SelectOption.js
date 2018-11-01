@@ -6,6 +6,7 @@ import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 8px;
