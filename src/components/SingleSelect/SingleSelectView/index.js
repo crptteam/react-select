@@ -4,7 +4,10 @@ import PropTypes from "prop-types";
 import InputContent from "./InputContent";
 import OptionsPanel from "./OptionsPanel";
 import InputWrap from "../../../styled/InputWrap";
+import PanelWrap from "../../../styled/PanelWrap";
+import OptionsPointer from "../../../styled/OptionsPointer";
 import InvisibleSelect from "../../../styled/InvisibleSelect";
+import PointerHelper from '../../../styled/PointerHelper';
 
 const propTypes = {
   inline: PropTypes.bool,
@@ -59,6 +62,7 @@ const SingleSelectView = props => {
     onKeyPress,
     onMouseOut,
     onMouseMove,
+    showPointer,
     ...otherProps
   } = props;
   return (
@@ -88,13 +92,20 @@ const SingleSelectView = props => {
         ))}
       </InvisibleSelect>
 
-      <OptionsPanel
-        onSelect={onSelect}
-        onRef={onOptionsRef}
-        values={values}
-        isOpen={isOpen}
-        {...otherProps}
-      />
+      <PanelWrap
+        innerRef={onOptionsRef}
+        visible={isOpen}
+      >
+        {showPointer && <OptionsPointer theme={otherProps.theme} />}
+        <OptionsPanel
+          showPointer={showPointer}
+          onSelect={onSelect}
+          values={values}
+          isOpen={isOpen}
+          {...otherProps}
+        />
+        {showPointer && <PointerHelper marginTop={showPointer ? '15px' : undefined} />}
+      </PanelWrap>
     </InputWrap>
   );
 };

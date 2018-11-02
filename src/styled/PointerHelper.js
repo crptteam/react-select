@@ -5,34 +5,16 @@ import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
-  position: relative;
-  min-width: 100%;
-  margin-top: ${props => props.marginTop};
-  padding-top: ${props => props.paddingTop};
-  padding-bottom: ${props => props.paddingBottom};
-  js-display: flex;
-  display: ${props => (props.visible ? "flex" : "none")};
-  overflow-y: auto;
-  max-height: ${props => props.maxHeight};
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -ms-user-select: none;
-  z-index: 3;
+  position: absolute;
+  left: 23px;
   background: ${props => props.background};
-  border: ${props => props.border};
-  border-radius: ${props => props.borderRadius};
-  box-shadow: ${props => props.boxShadow ? props.boxShadow : ''};
-  ${props => props.truncate ? css`
-    width: ${props.width ? props.width : "100%"};
-  ` : ""}
+  width: 16px;
+  height: 2px;
+  z-index: 4;
+  top: ${props => props.marginTop};
 `;
 
-const SelectOptionsPanel = props => {
+const PointerHelper = props => {
   const merged = innerMerge(
     {},
     defaultTheme.Select,
@@ -65,4 +47,4 @@ const SelectOptionsPanel = props => {
   return <Elem {...theme} {...props} />;
 };
 
-export default SelectOptionsPanel;
+export default PointerHelper;

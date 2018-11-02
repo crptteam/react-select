@@ -5,7 +5,6 @@ import SelectOption from '../../../styled/SelectOption';
 import SelectText from '../../../styled/SelectText';
 import SelectOptionsPanel from '../../../styled/SelectOptionsPanel';
 import DefaultLoading from '../../../styled/DefaultLoading';
-import SelectOptionsPointer from '../../../styled/SelectOptionsPointer';
 
 export default class OptionsPanel extends Component {
   static propTypes = {
@@ -45,8 +44,7 @@ export default class OptionsPanel extends Component {
     onSelect: PropTypes.func.isRequired,
     showPointer: PropTypes.bool,
     noValuesText: PropTypes.string,
-    onRef: PropTypes.func.isRequired,
-  }
+  };
 
   static defaultProps = {
     isOpen: false,
@@ -62,7 +60,7 @@ export default class OptionsPanel extends Component {
     theme: {},
     showPointer: false,
     noValuesText: '<пусто>'
-  }
+  };
 
   isFiltered = ({ item, value }) => {
     const filteredString = item.filterString
@@ -75,7 +73,7 @@ export default class OptionsPanel extends Component {
     }
 
     return false;
-  }
+  };
 
   renderItem = ({
     item,
@@ -98,7 +96,7 @@ export default class OptionsPanel extends Component {
         {title}
       </SelectText>
     );
-  }
+  };
 
   renderValues = () => {
     const {
@@ -148,7 +146,7 @@ export default class OptionsPanel extends Component {
         {noValuesText}
       </SelectOption>
     );
-  }
+  };
 
   render() {
     const {
@@ -158,7 +156,6 @@ export default class OptionsPanel extends Component {
       hideOptionsPanel,
       truncate,
       showPointer,
-      onRef,
     } = this.props;
 
     const panelMargin = showPointer ? '15px' : undefined;
@@ -167,12 +164,10 @@ export default class OptionsPanel extends Component {
       <SelectOptionsPanel
         isOpen={isOpen}
         theme={theme}
-        visible={isOpen && !hideOptionsPanel}
+        visible={!hideOptionsPanel}
         truncate={truncate}
         marginTop={panelMargin}
-        innerRef={onRef}
       >
-        {showPointer && <SelectOptionsPointer />}
         {isLoading ? (
           <DefaultLoading>
             Загрузка...
