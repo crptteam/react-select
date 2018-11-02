@@ -15,6 +15,9 @@ import Placeholder from "../styled/Placeholder";
 import { BottomArrow, SelectCheckmark, Search } from "../svg";
 import SelectOptionsPointer from '../styled/SelectOptionsPointer';
 import Cross from '../svg/cross.svg';
+import PanelWrap from '../styled/PanelWrap';
+import OptionsPointer from '../styled/OptionsPointer';
+import PointerHelper from '../styled/PointerHelper';
 
 class MultiSelect extends Component {
   blurTimeout;
@@ -236,17 +239,22 @@ class MultiSelect extends Component {
           ))}
         </InvisibleSelect>
 
-        <SelectOptionsPanel
-          theme={theme}
+        <PanelWrap
           innerRef={el => { this.optionsPanel = el; }}
           visible={this.state.isOpen}
-          truncate={this.props.truncate}
-          marginTop={panelMargin}
         >
-          {showPointer && <SelectOptionsPointer />}
-          {this.renderValues()}
-        </SelectOptionsPanel>
+          {showPointer && <OptionsPointer theme={theme} />}
 
+          <SelectOptionsPanel
+            theme={theme}
+            visible={this.state.isOpen}
+            truncate={this.props.truncate}
+            marginTop={panelMargin}
+          >
+            {this.renderValues()}
+          </SelectOptionsPanel>
+          {showPointer && <PointerHelper marginTop={showPointer ? '15px' : undefined} />}
+        </PanelWrap>
       </InputWrap>
     );
   }
