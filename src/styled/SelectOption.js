@@ -9,15 +9,9 @@ const Elem = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 8px;
-  padding-top: 8px;
-  padding-right: 16px;
-  :first-child {
-    padding-top: 8px;
-  }
-  :last-child {
-    padding-bottom: 8px;
-  }
+  padding: ${props => props.padding || '8px 16px'};
+  margin: ${props => props.margin};
+
   :after {
     content: ${props => (props.multi ? null : "")};
     width: 40px;
@@ -25,8 +19,6 @@ const Elem = styled.div`
   cursor: ${props => props.cursor};
   font-size: 16px;
   box-sizing: border-box;
-  padding-left: 16px;
-  padding-right: 16px;
   height: ${props => props.custom ? '' : props.height};
   color: ${props => props.color};
   font-family: ${props => props.fontFamily};
