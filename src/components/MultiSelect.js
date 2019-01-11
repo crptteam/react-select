@@ -240,6 +240,7 @@ class MultiSelect extends Component {
         </InvisibleSelect>
 
         <PanelWrap
+          truncate={otherProps.truncate}
           innerRef={el => { this.optionsPanel = el; }}
           visible={this.state.isOpen}
         >
