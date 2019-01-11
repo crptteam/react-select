@@ -10,32 +10,25 @@ import MultiSelect from '../../src/components/MultiSelect';
 class Demo extends React.Component {
 
   state = {
-    values: [],
-  };
-
-  onChange = () => {
-    this.setState({values: [], isLoading: true}, () => {
-      setTimeout(() => this.setState({values: [{id:1, title: 'One', disabled: true}, {id:2, title: 'Two'}], isLoading: false}), 1000)
-    });
+    values: [
+      { id: 1, title: 'Очень длинный пункт меню1, который должен вместиться в инпут' },
+      { id: 2, title: 'Очень длинный пункт меню2, который должен вместиться в инпут' },
+    ],
   };
 
   render() {
     return (
-      <div>
+      <div style={{ width: '300px' }}>
         <SingleSelect
-          onChange={this.onChange}
-          isLoading={this.state.isLoading}
           placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
+          multiline
           savePlaceholder
-          onSelect={console.log}
           values={this.state.values}
         />
         <MultiSelect
-          onChange={this.onChange}
-          isLoading={this.state.isLoading}
           placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
           savePlaceholder
-          onSelect={console.log}
+          truncate
           values={this.state.values}
         />
       </div>

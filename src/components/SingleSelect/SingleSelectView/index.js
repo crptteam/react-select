@@ -95,6 +95,7 @@ const SingleSelectView = props => {
       <PanelWrap
         innerRef={onOptionsRef}
         visible={isOpen}
+        truncate={otherProps.truncate}
       >
         {showPointer && <OptionsPointer theme={otherProps.theme} />}
         <OptionsPanel
