@@ -94,17 +94,20 @@ export default {
       main: {
         color: "#212C42",
         placeholderColor: "#ACADB5",
-        cursor: "text"
+        cursor: "text",
+        border: 0
       },
       disabled: {
         color: "#212C42",
         placeholderColor: "#ACADB5",
-        cursor: "not-allowed"
+        cursor: "not-allowed",
+        border: 0
       },
       error: {
         color: "#212C42",
         placeholderColor: "#ACADB5",
-        cursor: "text"
+        cursor: "text",
+        border: 0,
       },
       height: "24px",
       fontSize: "16px",
