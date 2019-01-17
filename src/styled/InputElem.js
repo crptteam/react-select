@@ -18,7 +18,7 @@ const Elem = styled.input`
   overflow: hidden;
   box-sizing: border-box !important;
   outline: 0;
-  border: 0;
+  border: ${props => props.border};
   overflow: hidden;
   padding: 0;
   top: ${props => (props.centered ? "0" : "10px")};
