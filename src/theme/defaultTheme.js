@@ -85,7 +85,7 @@ export default {
         border: "1px solid #FF3C21",
         cursor: "normal"
       },
-      height: "64px",
+      height: "38px",
       borderRadius: "2px",
       paddingLeft: "16px",
       paddingRight: "16px"
