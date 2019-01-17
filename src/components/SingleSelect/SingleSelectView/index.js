@@ -96,6 +96,7 @@ const SingleSelectView = props => {
         innerRef={onOptionsRef}
         visible={isOpen}
         truncate={otherProps.truncate}
+        theme={otherProps.theme}
       >
         {showPointer && <OptionsPointer theme={otherProps.theme} />}
         <OptionsPanel

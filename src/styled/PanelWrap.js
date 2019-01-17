@@ -32,6 +32,8 @@ const PanelWrap = props => {
     props.disabled ? "disabled" : props.isError ? "error" : "main"
   );
 
+  console.log('PanelWrap theme', theme, props);
+
   return <Elem {...theme} {...props} />;
 };
 
