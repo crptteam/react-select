@@ -254,6 +254,7 @@ class SingleSelect extends Component {
       selectedId: null,
     });
     if (onSelect) { onSelect(null); }
+    this.onBlur();
   };
 
   render() {
