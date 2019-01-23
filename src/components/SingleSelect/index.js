@@ -247,14 +247,20 @@ class SingleSelect extends Component {
   }
 
   clear = () => {
-    const { onSelect } = this.props;
+    const { onSelect, onTogglePanel } = this.props;
 
     this.setState({
       value: '',
       selectedId: null,
+      isOpen: false
     });
+
+    if (this.open) {
+      this.open = false;
+      onTogglePanel(false);
+    }
+
     if (onSelect) { onSelect(null); }
-    this.onBlur();
   };
 
   render() {
