@@ -17,6 +17,7 @@ class SingleSelect extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     selectedId: PropTypes.number,
+    selectedIdOnClear: PropTypes.number,
     withoutIcon: PropTypes.bool,
     filterDisabled: PropTypes.bool,
     values: PropTypes.arrayOf(
@@ -247,11 +248,11 @@ class SingleSelect extends Component {
   }
 
   clear = () => {
-    const { onSelect, onTogglePanel } = this.props;
+    const { onSelect, onTogglePanel, selectedIdOnClear } = this.props;
 
     this.setState({
       value: '',
-      selectedId: null,
+      selectedId: selectedIdOnClear !== undefined ? selectedIdOnClear : null,
       isOpen: false,
       isFocused: false
     });
@@ -261,7 +262,19 @@ class SingleSelect extends Component {
       onTogglePanel(false);
     }
 
-    if (onSelect) { onSelect(null); }
+    if (onSelect) {
+      if (selectedIdOnClear !== undefined) {
+        const value = this.state.values[selectedIdOnClear];
+        onSelect(value);
+      }
+
+      else {
+        onSelect(null);
+      }
+
+
+
+    }
   };
 
   render() {
