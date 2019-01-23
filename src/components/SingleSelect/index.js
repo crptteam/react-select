@@ -278,9 +278,9 @@ class SingleSelect extends Component {
 
     this.setState({
       value: "",
-      selectedId: selectedIdOnClear !== undefined ? selectedIdOnClear : null,
+      selectedId: undefined !== selectedIdOnClear ? selectedIdOnClear : null,
       isOpen: false,
-      isFocused: false
+      isFocused: undefined !== selectedIdOnClear
     });
 
     if (this.open) {
@@ -290,10 +290,13 @@ class SingleSelect extends Component {
 
     if (onSelect) {
       if (selectedIdOnClear !== undefined) {
-        try {
+
           const value = this.props.values[selectedIdOnClear];
+          this.setState({
+            value: value.title
+          });
           onSelect(value);
-        } catch (e) {}
+
       } else {
         onSelect(null);
       }

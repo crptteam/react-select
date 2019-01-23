@@ -11,5 +11,6 @@ export const calcDefaultStateFromProps = ({
     value: isValidId ? values.find(item => item.id === selectedId).title : '',
     editedAfterSelection: false,
     defaultSelectedId: isValidId ? selectedId : null,
+
   };
 }
