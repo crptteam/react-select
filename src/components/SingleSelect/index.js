@@ -252,9 +252,15 @@ class SingleSelect extends Component {
     this.setState({
       value: '',
       selectedId: null,
+      isOpen: false
     });
+
+    if (this.open) {
+      this.open = false;
+      onTogglePanel(false);
+    }
+
     if (onSelect) { onSelect(null); }
-    this.onBlur();
   };
 
   render() {
