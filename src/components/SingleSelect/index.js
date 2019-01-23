@@ -247,7 +247,7 @@ class SingleSelect extends Component {
   }
 
   clear = () => {
-    const { onSelect } = this.props;
+    const { onSelect, onTogglePanel } = this.props;
 
     this.setState({
       value: '',
