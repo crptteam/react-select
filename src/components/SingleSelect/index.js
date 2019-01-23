@@ -252,7 +252,8 @@ class SingleSelect extends Component {
     this.setState({
       value: '',
       selectedId: null,
-      isOpen: false
+      isOpen: false,
+      isFocused: false
     });
 
     if (this.open) {
