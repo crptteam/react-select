@@ -276,6 +276,8 @@ class SingleSelect extends Component {
   clear = () => {
     const { onSelect, onTogglePanel, selectedIdOnClear } = this.props;
 
+    let returnValue;
+
     this.setState({
       value: "",
       selectedId: undefined !== selectedIdOnClear ? selectedIdOnClear : null,
@@ -297,10 +299,14 @@ class SingleSelect extends Component {
           });
           onSelect(value);
 
+          returnValue = {...value, _type: 'SingleSelect'};
+
       } else {
         onSelect(null);
       }
     }
+
+    return returnValue;
   };
 
   render() {
