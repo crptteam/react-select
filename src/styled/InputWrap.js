@@ -10,6 +10,7 @@ const Elem = styled.label`
   width: ${props => (props.inline ? props.width : "100%")};
   min-width: ${props => (props.inline ? props.minWidth : "100%")};
   height: ${props => props.height};
+  min-height: ${props => props.minHeight};
   box-sizing: border-box;
   background: ${props => props.background};
   border: ${props => props.border};

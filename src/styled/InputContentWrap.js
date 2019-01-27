@@ -6,10 +6,8 @@ const Elem = styled.div`
     js-display: flex; 
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    width: calc(100% - 32px);
+    position: relative;
+    width: 100%;
   `;
 
 const InputContentWrap = props => {
