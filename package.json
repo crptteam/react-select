@@ -1,6 +1,6 @@
 {
   "name": "@crpt/react-select",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "react-select react component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -24,6 +24,8 @@
     "access": "public"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
+    "resize-observer": "^1.0.0",
     "styled-components": "1.4.6 - 3"
   },
   "peerDependencies": {

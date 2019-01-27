@@ -5,15 +5,15 @@ import { getThemeAsPlainObjectByKeys, innerMerge } from "../utils";
 import defaultTheme from "../theme/defaultTheme";
 
 const Elem = styled.div`
-  display: ${props => (props.focused && !props.isSaved) ? "none" : "block"};
+  display: ${props => (props.focused && !props.isSaved ? "none" : "block")};
   position: absolute;
   line-height: ${props => props.height};
   font-size: ${props => props.fontSize};
   color: ${props => props.color};
   font-weight: ${props => props.fontWeight};
-  left: ${props => props.left ? `${props.left}px` : '0'};
+  left: ${props => (props.left ? `${props.left}px` : "0")};
   font-family: ${props => props.fontFamily};
-  top: ${props => props.focused ? '30' : '50'}%;
+  top: ${props => props.top};
   transform: translateY(-50%);
   transition: all 0.3s ease;
   max-width: 100%;

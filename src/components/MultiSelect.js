@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {withTheme} from "styled-components";
+import { withTheme } from "styled-components";
+import { ResizeObserver } from "resize-observer";
 
 import InputWrap from "../styled/InputWrap";
 import InputContentWrap from "../styled/InputContentWrap";
@@ -13,31 +14,42 @@ import SelectedIconWrap from "../styled/SelectedIconWrap";
 import Placeholder from "../styled/Placeholder";
 
 import { BottomArrow, SelectCheckmark, Search } from "../svg";
-import SelectOptionsPointer from '../styled/SelectOptionsPointer';
-import Cross from '../svg/cross.svg';
-import PanelWrap from '../styled/PanelWrap';
-import OptionsPointer from '../styled/OptionsPointer';
-import PointerHelper from '../styled/PointerHelper';
+import SelectOptionsPointer from "../styled/SelectOptionsPointer";
+import Cross from "../svg/cross.svg";
+import PanelWrap from "../styled/PanelWrap";
+import OptionsPointer from "../styled/OptionsPointer";
+import PointerHelper from "../styled/PointerHelper";
 
 class MultiSelect extends Component {
   blurTimeout;
   select;
   open;
+  container;
 
   constructor(props) {
     super(props);
 
     this.state = {
       isOpen: false,
-      isFocused: this.props.selectedIds && !!this.props.selectedIds.length || false,
+      isFocused:
+        (this.props.selectedIds && !!this.props.selectedIds.length) || false,
       value:
         this.props.selectedIds && this.props.values
           ? this.getFilteredValues(this.props.selectedIds, this.props.values)
               .map(v => v.title)
               .join("; ")
           : "",
-      selectedIds: this.props.selectedIds ? this.props.selectedIds.slice() : []
+      selectedIds: this.props.selectedIds ? this.props.selectedIds.slice() : [],
+      top: null,
+      filterValue: null
     };
+
+    this.ro = new ResizeObserver(elems => {
+      try {
+        const height = elems[0].contentRect.height;
+        this.setState({ top: height - 2 + "px" });
+      } catch (e) {}
+    });
 
     this.onSelect = this.onSelect.bind(this);
     this.onFocus = this.onFocus.bind(this);
@@ -52,6 +64,21 @@ class MultiSelect extends Component {
     }
   }
 
+  handleClick = e => {
+    console.log("this.container", this.container);
+    if (this.container.contains(e.target)) return;
+
+    if (this.state.isOpen) {
+      this.setState({
+        isOpen: false
+      });
+    }
+  };
+
+  componentWillMount() {
+    document.addEventListener("mousedown", this.handleClick, false);
+  }
+
   componentDidMount() {
     if (this.select && this.state.selectedIds.length) {
       this.state.selectedIds.forEach(
@@ -59,17 +86,20 @@ class MultiSelect extends Component {
       );
     }
     this.props.onRef && this.props.onRef(this);
+    this.setState({ top: this.container.clientHeight - 2 + "px" });
+    this.ro.observe(this.container);
   }
 
   componentWillUnmount() {
     this.props.onRef && this.props.onRef(undefined);
+    document.removeEventListener("mousedown", this.handleClick, false);
   }
 
   clear = () => {
     this.setState({
       value: "",
       selectedIds: [],
-      isFocused: false,
+      isFocused: false
     });
 
     this.props.onSelect && this.props.onSelect([]);
@@ -78,6 +108,12 @@ class MultiSelect extends Component {
   getFilteredValues(selectedIds, values) {
     return values.filter(v => ~selectedIds.indexOf(v.id));
   }
+
+  onFilter = value => {
+    this.setState({
+      filterValue: value ? value : null
+    });
+  };
 
   onSelect(e, v) {
     if (v.disabled) return;
@@ -94,7 +130,6 @@ class MultiSelect extends Component {
         ]
       : this.state.selectedIds.slice().concat([v.id]);
 
-
     const value = this.getFilteredValues(newSelectedIds, this.props.values)
       .map(v => v.title)
       .join("; ");
@@ -102,7 +137,7 @@ class MultiSelect extends Component {
     this.setState({
       value,
       selectedIds: newSelectedIds,
-      isFocused: !!newSelectedIds.length,
+      isFocused: !!newSelectedIds.length
     });
 
     this.select.querySelector(`option`).selected = false;
@@ -111,15 +146,17 @@ class MultiSelect extends Component {
       id => (this.select.querySelector(`[value="${id}"]`).selected = true)
     );
 
-    this.props.onSelect(this.getFilteredValues(newSelectedIds, this.props.values));
-
+    this.props.onSelect(
+      this.getFilteredValues(newSelectedIds, this.props.values)
+    );
   }
 
   onBlur(e) {
+    console.log("onBlur");
     this.blurTimeout = setTimeout(() => {
       this.setState(oldState => ({
         isOpen: false,
-        isFocused: !!oldState.selectedIds.length,
+        isFocused: !!oldState.selectedIds.length
       }));
       if (this.open) {
         this.open = false;
@@ -129,34 +166,58 @@ class MultiSelect extends Component {
   }
 
   renderValues() {
-    const { values, noValuesText } = this.props;
-    return values.length
-      ? values.map(v =>
-          <SelectOption
-            theme={this.props.theme}
-            key={v.id}
-            disabled={v.disabled}
-            onClick={e => this.onSelect(e, v)}
-            multi
-          >
-            <SelectText truncate={this.props.truncate} multiline={this.props.multiline}>{v.title}</SelectText>
-            <SelectedIconWrap>
-              {~this.state.selectedIds.indexOf(v.id) ? (
-                <SelectCheckmark />
-              ) : (
-                ""
-              )}
-            </SelectedIconWrap>
-          </SelectOption>
-        )
-      : (
-        <SelectOption>
-          {noValuesText}
-        </SelectOption>
+    const { values, noValuesText, RenderOption } = this.props;
+
+    const filtered = values.filter(
+      v =>
+        this.state.filterValue
+          ? ~v.title
+              .toLocaleLowerCase()
+              .indexOf(this.state.filterValue.toLocaleLowerCase())
+          : true
+    );
+
+    return filtered.length ? (
+      filtered.map(
+        v =>
+          RenderOption ? (
+            <RenderOption
+              key={v.id}
+              onSelect={this.onSelect}
+              value={v}
+              active={!!~this.state.selectedIds.indexOf(v.id)}
+            />
+          ) : (
+            <SelectOption
+              theme={this.props.theme}
+              key={v.id}
+              disabled={v.disabled}
+              onClick={e => this.onSelect(e, v)}
+              multi
+            >
+              <SelectText
+                truncate={this.props.truncate}
+                multiline={this.props.multiline}
+              >
+                {v.title}
+              </SelectText>
+              <SelectedIconWrap>
+                {~this.state.selectedIds.indexOf(v.id) ? (
+                  <SelectCheckmark />
+                ) : (
+                  ""
+                )}
+              </SelectedIconWrap>
+            </SelectOption>
+          )
       )
+    ) : (
+      <SelectOption>{noValuesText}</SelectOption>
+    );
   }
 
   onFocus(e) {
+    console.log("onFocus");
     this.setState({
       isOpen: true
     });
@@ -169,31 +230,39 @@ class MultiSelect extends Component {
     if (this.blurTimeout) clearTimeout(this.blurTimeout);
   }
 
-  renderIcon = (marginRight) => {
+  onRemoveSelectedValue = id => {
+    const selectedIds = this.state.selectedIds.filter(v => v !== id);
+    this.setState({
+      selectedIds
+    });
+  };
+
+  renderIcon = marginRight => {
     const { withoutIcon } = this.props;
     const { isFocused, value, isOpen } = this.state;
 
-    if (withoutIcon) return (null);
+    if (withoutIcon) return null;
 
-    if (value && !isOpen) return <Cross style={{marginRight}} onClick={this.clear} />;
-    if (!value && isFocused) return <Search style={{marginRight}} />;
-    return <BottomArrow style={{marginRight}} />;
+    if (value && !isOpen)
+      return <Cross style={{ marginRight }} onClick={this.clear} />;
+    if (!value && isFocused) return <Search style={{ marginRight }} />;
+    return <BottomArrow style={{ marginRight }} />;
   };
 
   render() {
-
     const {
       theme,
       onSelect,
       values,
       name,
       onClick,
-      iconPosition = 'right',
+      iconPosition = "right",
       showPointer,
+      RenderValues,
       ...otherProps
     } = this.props;
 
-    const panelMargin = showPointer ? '15px' : undefined;
+    const panelMargin = showPointer ? "15px" : undefined;
 
     return (
       <InputWrap
@@ -201,30 +270,44 @@ class MultiSelect extends Component {
         onBlur={this.onBlur}
         onClick={this.onClick}
         theme={theme}
+        innerRef={el => (this.container = el)}
         component="Select"
       >
         <InputContentWrap {...otherProps}>
-          {iconPosition == 'left' && (this.renderIcon(16))}
+          {iconPosition == "left" && this.renderIcon(16)}
           <Placeholder
             focused={this.state.isFocused}
             dispabled={this.props.disabled}
             isError={this.props.isError}
             theme={this.props.theme}
             isSaved={this.props.savePlaceholder}
-            left={iconPosition == 'left' ? 26 : 0}
+            left={iconPosition == "left" ? 26 : 0}
           >
             {this.props.placeholder}
           </Placeholder>
-          <InputElem
-            noCaret
-            value={this.state.value}
-            onFocus={this.onFocus}
-            onChange={e => null}
-            centered={!this.props.savePlaceholder}
-            theme={theme}
-            component="Select"
-          />
-          {iconPosition == 'right' && (this.renderIcon())}
+          {RenderValues ? (
+            <RenderValues
+              container={this.container}
+              onFocus={this.onFocus}
+              value={this.state.value}
+              selectedIds={this.state.selectedIds}
+              values={values}
+              onRemove={this.onRemoveSelectedValue}
+              onFilter={this.onFilter}
+              theme={theme}
+            />
+          ) : (
+            <InputElem
+              noCaret
+              value={this.state.value}
+              onFocus={this.onFocus}
+              onChange={e => null}
+              centered={!this.props.savePlaceholder}
+              theme={theme}
+              component="Select"
+            />
+          )}
+          {iconPosition == "right" && this.renderIcon()}
         </InputContentWrap>
 
         <InvisibleSelect
@@ -240,8 +323,11 @@ class MultiSelect extends Component {
         </InvisibleSelect>
 
         <PanelWrap
+          top={this.state.top}
           truncate={otherProps.truncate}
-          innerRef={el => { this.optionsPanel = el; }}
+          innerRef={el => {
+            this.optionsPanel = el;
+          }}
           visible={this.state.isOpen}
         >
           {showPointer && <OptionsPointer theme={theme} />}
@@ -254,7 +340,9 @@ class MultiSelect extends Component {
           >
             {this.renderValues()}
           </SelectOptionsPanel>
-          {showPointer && <PointerHelper marginTop={showPointer ? '15px' : undefined} />}
+          {showPointer && (
+            <PointerHelper marginTop={showPointer ? "15px" : undefined} />
+          )}
         </PanelWrap>
       </InputWrap>
     );
@@ -271,7 +359,7 @@ MultiSelect.propTypes = {
   showPointer: PropTypes.bool,
   noValuesText: PropTypes.string,
   onTogglePanel: PropTypes.func,
-  inline: PropTypes.bool.isRequired,
+  inline: PropTypes.bool.isRequired
 };
 
 MultiSelect.defaultProps = {
@@ -282,14 +370,14 @@ MultiSelect.defaultProps = {
   values: [
     {
       id: 1,
-      title: "",
+      title: ""
     }
   ],
-  iconPosition: 'right',
+  iconPosition: "right",
   showPointer: false,
-  noValuesText: '<пусто>',
+  noValuesText: "<пусто>",
   onTogglePanel: () => {},
-  inline: false,
+  inline: false
 };
 
 MultiSelect.displayName = "MultiSelect";
