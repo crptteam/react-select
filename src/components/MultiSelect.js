@@ -270,6 +270,7 @@ class MultiSelect extends Component {
         onBlur={this.onBlur}
         onClick={this.onClick}
         theme={theme}
+        isOpen={this.state.isOpen}
         innerRef={el => (this.container = el)}
         component="Select"
       >
@@ -323,6 +324,7 @@ class MultiSelect extends Component {
         </InvisibleSelect>
 
         <PanelWrap
+          isOpen={this.state.isOpen}
           top={this.state.top}
           truncate={otherProps.truncate}
           innerRef={el => {
@@ -334,6 +336,7 @@ class MultiSelect extends Component {
 
           <SelectOptionsPanel
             theme={theme}
+            isOpen={this.state.isOpen}
             visible={this.state.isOpen}
             truncate={this.props.truncate}
             marginTop={panelMargin}
