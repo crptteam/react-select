@@ -34,7 +34,8 @@ class SingleSelect extends Component {
     onSelect: PropTypes.func,
     onChange: PropTypes.func,
     onEnterKey: PropTypes.func,
-    onTogglePanel: PropTypes.func
+    onTogglePanel: PropTypes.func,
+    rightIconReplacer: PropTypes.element,
   };
 
   static defaultProps = {

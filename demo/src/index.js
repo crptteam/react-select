@@ -180,6 +180,7 @@ class Demo extends React.Component {
           multiline
           savePlaceholder
           values={this.state.values}
+          rightIconReplacer={<div>+</div>}
         />
         <MultiSelect
           placeholder="Укажите своих операторов ЭДО"
