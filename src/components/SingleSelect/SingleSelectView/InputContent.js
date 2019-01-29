@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import SelectText from '../../../styled/SelectText';
-import InputContentWrap from '../../../styled/InputContentWrap';
-import InputElem from '../../../styled/InputElem';
-import RenderWrap from '../../../styled/RenderWrap';
-import Placeholder from '../../../styled/Placeholder';
+import SelectText from "../../../styled/SelectText";
+import InputContentWrap from "../../../styled/InputContentWrap";
+import InputElem from "../../../styled/InputElem";
+import RenderWrap from "../../../styled/RenderWrap";
+import Placeholder from "../../../styled/Placeholder";
 
-import { BottomArrow, Search, Cross } from '../../../svg';
+import { BottomArrow, Search, Cross } from "../../../svg";
 
 export default class InputContent extends Component {
   static propTypes = {
@@ -22,12 +22,12 @@ export default class InputContent extends Component {
     renderValue: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func,
-      PropTypes.string,
+      PropTypes.string
     ]),
     value: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func,
-      PropTypes.string,
+      PropTypes.string
     ]),
     values: PropTypes.arrayOf(
       PropTypes.shape({
@@ -35,14 +35,14 @@ export default class InputContent extends Component {
         value: PropTypes.oneOfType([
           PropTypes.element,
           PropTypes.func,
-          PropTypes.string,
+          PropTypes.string
         ]),
         title: PropTypes.oneOfType([
           PropTypes.element,
           PropTypes.func,
-          PropTypes.string,
-        ]).isRequired,
-      }),
+          PropTypes.string
+        ]).isRequired
+      })
     ),
     selectedId: PropTypes.number,
     onClick: PropTypes.func.isRequired,
@@ -51,6 +51,7 @@ export default class InputContent extends Component {
     onEnterKey: PropTypes.func.isRequired,
     onClear: PropTypes.func.isRequired,
     iconPosition: PropTypes.string,
+    rightIconReplacer: PropTypes.element
   };
 
   static defaultProps = {
@@ -58,7 +59,7 @@ export default class InputContent extends Component {
     isOpen: false,
     isError: false,
     disabled: false,
-    placeholder: '',
+    placeholder: "",
     savePlaceholder: false,
     withoutIcon: false,
     renderValue: undefined,
@@ -66,15 +67,15 @@ export default class InputContent extends Component {
     values: [],
     value: undefined,
     theme: {},
-    iconPosition: 'right',
+    iconPosition: "right"
   };
 
-  onSelectBlocker = (event) => {
+  onSelectBlocker = event => {
     event.stopPropagation();
   };
 
-  onKeyPress = (e) => {
-    if (e.charCode === 13 || e.keyCode === 13 || e.key == 'Enter') {
+  onKeyPress = e => {
+    if (e.charCode === 13 || e.keyCode === 13 || e.key == "Enter") {
       this.props.onEnterKey(this.props.value);
     }
   };
@@ -92,22 +93,19 @@ export default class InputContent extends Component {
     RenderValue,
     onClickRenderWrap,
     onChange,
-    onClick,
+    onClick
   }) => {
     if (item !== undefined) {
       if (RenderValue) {
         return (
           <RenderWrap onClick={onClickRenderWrap}>
-            <RenderValue
-              selected={item}
-              value={item}
-            />
+            <RenderValue selected={item} value={item} />
           </RenderWrap>
         );
       }
 
       const title = item.titleText ? item.titleText : item.title;
-      if ((typeof title) === 'function') {
+      if (typeof title === "function") {
         const Item = title;
         return (
           <RenderWrap onClick={onClickRenderWrap}>
@@ -116,7 +114,7 @@ export default class InputContent extends Component {
         );
       }
 
-      if (typeof (title) === 'object') {
+      if (typeof title === "object") {
         return (
           <RenderWrap onClick={onClickRenderWrap}>
             <SelectText truncate={truncate} multiline={multiline}>
@@ -141,14 +139,14 @@ export default class InputContent extends Component {
     );
   };
 
-  renderIcon = (marginRight) => {
+  renderIcon = marginRight => {
     const { value, isFocused, withoutIcon, onClear } = this.props;
 
-    if (withoutIcon) return (null);
+    if (withoutIcon) return null;
 
-    if (value) return <Cross style={{marginRight}} onClick={onClear} />;
-    if (!value && isFocused) return <Search style={{marginRight}} />;
-    return <BottomArrow style={{marginRight}} />;
+    if (value) return <Cross style={{ marginRight }} onClick={onClear} />;
+    if (!value && isFocused) return <Search style={{ marginRight }} />;
+    return <BottomArrow style={{ marginRight }} />;
   };
 
   render() {
@@ -169,19 +167,24 @@ export default class InputContent extends Component {
       onClickRenderWrap,
       theme,
       iconPosition,
+      rightIconReplacer,
       ...otherProps
     } = this.props;
 
     return (
-      <InputContentWrap {...otherProps} theme={theme} onSelect={this.onSelectBlocker}>
-        {iconPosition == 'left' && this.renderIcon(16)}
+      <InputContentWrap
+        {...otherProps}
+        theme={theme}
+        onSelect={this.onSelectBlocker}
+      >
+        {iconPosition == "left" && this.renderIcon(16)}
         <Placeholder
           focused={isFocused}
           disabled={disabled}
           isError={isError}
           theme={theme}
           isSaved={savePlaceholder}
-          left={iconPosition == 'left' ? 26 : 0}
+          left={iconPosition == "left" ? 26 : 0}
         >
           {placeholder}
         </Placeholder>
@@ -197,10 +200,12 @@ export default class InputContent extends Component {
           RenderValue,
           onClickRenderWrap,
           onChange,
-          onClick,
+          onClick
         })}
 
-        {iconPosition == 'right' && this.renderIcon()}
+        {rightIconReplacer
+          ? rightIconReplacer
+          : iconPosition == "right" && this.renderIcon()}
       </InputContentWrap>
     );
   }
