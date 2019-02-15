@@ -235,6 +235,9 @@ class MultiSelect extends Component {
     this.setState({
       selectedIds
     });
+
+    this.props.onRemove && this.props.onRemove(id);
+
   };
 
   renderIcon = marginRight => {
