@@ -65,7 +65,6 @@ class MultiSelect extends Component {
   }
 
   handleClick = e => {
-    console.log("this.container", this.container);
     if (this.container.contains(e.target)) return;
 
     if (this.state.isOpen) {
@@ -152,7 +151,6 @@ class MultiSelect extends Component {
   }
 
   onBlur(e) {
-    console.log("onBlur");
     this.blurTimeout = setTimeout(() => {
       this.setState(oldState => ({
         isOpen: false,
@@ -217,7 +215,6 @@ class MultiSelect extends Component {
   }
 
   onFocus(e) {
-    console.log("onFocus");
     this.setState({
       isOpen: true
     });
