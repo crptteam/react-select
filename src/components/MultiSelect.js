@@ -30,7 +30,7 @@ class MultiSelect extends Component {
     super(props);
 
     this.state = {
-      isOpen: false,
+      isOpen: true,
       isFocused:
         (this.props.selectedIds && !!this.props.selectedIds.length) || false,
       value:
@@ -215,8 +215,10 @@ class MultiSelect extends Component {
   }
 
   onFocus(e) {
+
     this.setState({
-      isOpen: true
+      isOpen: true,
+      isFocused: this.props.RenderValues ? true : this.state.isFocused
     });
 
     if (!this.open) {

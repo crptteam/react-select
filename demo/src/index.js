@@ -153,6 +153,7 @@ class RenderValues extends React.Component {
           value={this.state.value}
           onKeyDown={this.onTextareaKeydown}
           onChange={this.onChange}
+          onFocus={onFocus}
         />
       </Wrap>
     );
