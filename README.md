@@ -44,6 +44,7 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | showPointer: Boolean | Show options panel dialog pointer. Default: false | | |
 | noValuesText: String | Show text if values empty | | |
 | onTogglePanel: Function | Callback on toggle Options Panel | | |
+| rightIconReplacer: JSX expression | replaces right icon | | |
 __Note1__. Values is array of objects. You can add any properties and then use renderValue or renderOption for render them. But some properties are special.
 
 | Property name | Property type | Property description |
