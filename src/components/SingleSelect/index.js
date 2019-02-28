@@ -148,8 +148,14 @@ class SingleSelect extends Component {
     event.preventDefault();
   };
 
-  onBlur = () => {
+  onBlur = (event) => {
     this.blurTimeout = setTimeout(this.closeOptionPanel, ON_BLUR_TIMEOUT_MS);
+    const { values } = this.props;
+    const { value, selectedId } = this.state;
+    if (value) {
+      const item = values.find(i => i.title === value || i.value === value || i.type === value);
+      if (item && item.id !== selectedId) this.onSelect(event, item);
+    }
   };
 
   onFocus = event => {

@@ -320,7 +320,21 @@ class Demo extends React.Component {
         name: "Производитель"
       },
       { id: 6, title: "ФОИВ", value: "FOIV", name: "ФОИВ" }
-    ]
+    ],
+  };
+
+  onChange = () => {
+    this.setState({
+      values: [
+        { id: 1, title: "Кабак" },
+        { id: 2, title: "Каботьер" },
+        { id: 3, title: "Кабан" },
+        { id: 4, title: "Корма" },
+        { id: 5, title: "Кельт" },
+        { id: 6, title: "Кабинет" },
+        { id: 7, title: "Капитан" }
+      ]
+    })
   };
 
   render() {
@@ -344,6 +358,26 @@ class Demo extends React.Component {
           values={this.state.values}
           theme={{Select: theme}}
         />
+        <form onSubmit={i => i.preventDefault()}>
+          <SingleSelect
+            placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
+            multiline
+            savePlaceholder
+            values={this.state.values}
+            rightIconReplacer={<div>+</div>}
+            onSelect={console.log}
+            onChange={this.onChange}
+          />
+          <MultiSelect
+            placeholder="Укажите своих операторов ЭДО"
+            savePlaceholder
+            truncate
+            withoutIcon
+            RenderValues={RenderValues}
+            RenderOption={RenderOption}
+            values={this.state.values}
+          />
+        </form>
       </div>
     );
   }
