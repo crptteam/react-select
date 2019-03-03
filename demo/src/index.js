@@ -1,11 +1,11 @@
-import React from "react";
-import { render } from "react-dom";
-import styled, { ThemeProvider } from "styled-components";
+import React from 'react';
+import { render } from 'react-dom';
+import styled, { ThemeProvider } from 'styled-components';
 
-import defaultTheme from "../../src/theme/loginTheme";
-import { SingleSelect } from "../../src";
-import MultiSelect from "../../src/components/MultiSelect";
-import { Cross, EmptyCheckbox, SelectedCheckbox } from "../../src/svg/";
+import defaultTheme from '../../src/theme/loginTheme';
+import { SingleSelect } from '../../src';
+import MultiSelect from '../../src/components/MultiSelect';
+import { Cross, EmptyCheckbox, SelectedCheckbox } from '../../src/svg/';
 
 const Wrap = styled.div`
   width: 100%;
@@ -40,7 +40,7 @@ const Textarea = styled.textarea`
   height: 22px;
   font-size: 16px;
   width: ${props => props.width};
-  font-family: "Segoe UI";
+  font-family: 'Segoe UI';
   border-top: 4px solid transparent;
 `;
 
@@ -205,7 +205,7 @@ class RenderValues extends React.Component {
   div;
 
   onTextareaKeydown = (e, onFilter) => {
-    console.log("onTextareaKeydown", e.keyCode);
+    console.log('onTextareaKeydown', e.keyCode);
     if (e.keyCode === 13) {
       e.preventDefault();
       e.stopPropagation();
@@ -217,7 +217,7 @@ class RenderValues extends React.Component {
     onFilter(e.target.value);
     this.div.innerHTML = e.target.value;
     this.setState({
-      width: this.div.clientWidth + 5 + "px",
+      width: this.div.clientWidth + 5 + 'px',
       value: e.target.value
     });
   };
@@ -226,13 +226,13 @@ class RenderValues extends React.Component {
     super(props);
 
     this.state = {
-      width: "10px",
-      value: ""
+      width: '10px',
+      value: ''
     };
   }
 
   componentWillMount() {
-    document.addEventListener("mousedown", this.handleClick, false);
+    document.addEventListener('mousedown', this.handleClick, false);
   }
 
   handleClick = e => {
@@ -241,29 +241,29 @@ class RenderValues extends React.Component {
     if (container.contains(e.target)) return;
 
     this.setState({
-      value: "",
-      width: "10px"
+      value: '',
+      width: '10px'
     });
 
-    onFilter("");
+    onFilter('');
   };
 
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener('mousedown', this.handleClick, false);
   }
 
   componentDidMount() {
-    this.div = document.createElement("div");
+    this.div = document.createElement('div');
     document.body.appendChild(this.div);
-    this.div.style.display = "inline-block";
-    this.div.style.pointerEvents = "none";
-    this.div.style.visibility = "hidden";
-    this.div.style.fontSize = "16px";
-    this.div.style.fontFamily = "Segoe UI";
+    this.div.style.display = 'inline-block';
+    this.div.style.pointerEvents = 'none';
+    this.div.style.visibility = 'hidden';
+    this.div.style.fontSize = '16px';
+    this.div.style.fontFamily = 'Segoe UI';
   }
 
   render() {
-    console.log("props", this.props);
+    console.log('props', this.props);
     const { onFocus, selectedIds, onFilter, onRemove } = this.props;
 
     const selected = this.props.values.filter(v => ~selectedIds.indexOf(v.id));
@@ -293,70 +293,71 @@ class RenderValues extends React.Component {
 class Demo extends React.Component {
   state = {
     values: [
-      { id: 0, title: "Розница", value: "RETAIL", name: "Розница" },
+      { id: 0, title: 'Розница', value: 'RETAIL', name: 'Розница' },
       {
         id: 1,
-        title: "Участник оборота",
-        value: "TRADE_PARTICIPANT",
-        name: "Участник оборота"
+        title: 'Участник оборота',
+        value: 'TRADE_PARTICIPANT',
+        name: 'Участник оборота'
       },
-      { id: 2, title: "Опт", value: "WHOLESALER", name: "Опт" },
+      { id: 2, title: 'Опт', value: 'WHOLESALER', name: 'Опт' },
       {
         id: 3,
-        title: "Администратор системы",
-        value: "ROLE_ADMIN",
-        name: "Администратор системы"
+        title: 'Администратор системы',
+        value: 'ROLE_ADMIN',
+        name: 'Администратор системы'
       },
       {
         id: 4,
-        title: "Оператор ИС МП",
-        value: "IS_MP_OPERATOR",
-        name: "Оператор ИС МП"
+        title: 'Оператор ИС МП',
+        value: 'IS_MP_OPERATOR',
+        name: 'Оператор ИС МП'
       },
       {
         id: 5,
-        title: "Производитель",
-        value: "PRODUCER",
-        name: "Производитель"
+        title: 'Производитель',
+        value: 'PRODUCER',
+        name: 'Производитель'
       },
-      { id: 6, title: "ФОИВ", value: "FOIV", name: "ФОИВ" }
-    ],
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' }
+    ]
   };
 
   onChange = () => {
     this.setState({
       values: [
-        { id: 1, title: "Кабак" },
-        { id: 2, title: "Каботьер" },
-        { id: 3, title: "Кабан" },
-        { id: 4, title: "Корма" },
-        { id: 5, title: "Кельт" },
-        { id: 6, title: "Кабинет" },
-        { id: 7, title: "Капитан" }
+        { id: 1, title: 'Кабак' },
+        { id: 2, title: 'Каботьер' },
+        { id: 3, title: 'Кабан' },
+        { id: 4, title: 'Корма' },
+        { id: 5, title: 'Кельт' },
+        { id: 6, title: 'Кабинет' },
+        { id: 7, title: 'Капитан' }
       ]
-    })
+    });
   };
 
   render() {
     return (
-      <div style={{ width: "300px" }}>
+      <div style={{ width: '600px' }}>
         <SingleSelect
           placeholder="Очень длинный плейсхолдер, который должен вместиться в инпут"
           multiline
           savePlaceholder
           values={this.state.values}
-          rightIconReplacer={<div>+</div>}
+          doubleIcon
+          // rightIconReplacer={<div>+</div>}
         />
         <MultiSelect
           placeholder="Укажите своих операторов ЭДО"
           savePlaceholder
           truncate
           withoutIcon
-          selectedIds={[3,4,5]}
+          selectedIds={[3, 4, 5]}
           RenderValues={RenderValues}
           RenderOption={RenderOption}
           values={this.state.values}
-          theme={{Select: theme}}
+          theme={{ Select: theme }}
         />
         <form onSubmit={i => i.preventDefault()}>
           <SingleSelect
@@ -387,5 +388,5 @@ render(
   <ThemeProvider theme={defaultTheme}>
     <Demo />
   </ThemeProvider>,
-  document.querySelector("#demo")
+  document.querySelector('#demo')
 );

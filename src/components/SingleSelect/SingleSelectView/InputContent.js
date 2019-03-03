@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
-import SelectText from "../../../styled/SelectText";
-import InputContentWrap from "../../../styled/InputContentWrap";
-import InputElem from "../../../styled/InputElem";
-import RenderWrap from "../../../styled/RenderWrap";
-import Placeholder from "../../../styled/Placeholder";
+import SelectText from '../../../styled/SelectText';
+import InputContentWrap from '../../../styled/InputContentWrap';
+import InputElem from '../../../styled/InputElem';
+import RenderWrap from '../../../styled/RenderWrap';
+import Placeholder from '../../../styled/Placeholder';
+import WrapDoubleIcon from '../../../styled/WrapDoubleIcon';
+import Separator from '../../../styled/Separator';
 
-import { BottomArrow, Search, Cross } from "../../../svg";
+import { BottomArrow, Search, Cross } from '../../../svg';
 
 export default class InputContent extends Component {
   static propTypes = {
@@ -59,7 +61,7 @@ export default class InputContent extends Component {
     isOpen: false,
     isError: false,
     disabled: false,
-    placeholder: "",
+    placeholder: '',
     savePlaceholder: false,
     withoutIcon: false,
     renderValue: undefined,
@@ -67,7 +69,7 @@ export default class InputContent extends Component {
     values: [],
     value: undefined,
     theme: {},
-    iconPosition: "right"
+    iconPosition: 'right'
   };
 
   onSelectBlocker = event => {
@@ -75,7 +77,7 @@ export default class InputContent extends Component {
   };
 
   onKeyPress = e => {
-    if (e.charCode === 13 || e.keyCode === 13 || e.key == "Enter") {
+    if (e.charCode === 13 || e.keyCode === 13 || e.key == 'Enter') {
       this.props.onEnterKey(this.props.value);
     }
   };
@@ -105,7 +107,7 @@ export default class InputContent extends Component {
       }
 
       const title = item.titleText ? item.titleText : item.title;
-      if (typeof title === "function") {
+      if (typeof title === 'function') {
         const Item = title;
         return (
           <RenderWrap onClick={onClickRenderWrap}>
@@ -114,7 +116,7 @@ export default class InputContent extends Component {
         );
       }
 
-      if (typeof title === "object") {
+      if (typeof title === 'object') {
         return (
           <RenderWrap onClick={onClickRenderWrap}>
             <SelectText truncate={truncate} multiline={multiline}>
@@ -140,9 +142,19 @@ export default class InputContent extends Component {
   };
 
   renderIcon = marginRight => {
-    const { value, isFocused, withoutIcon, onClear } = this.props;
+    const { value, isFocused, withoutIcon, onClear, doubleIcon } = this.props;
 
     if (withoutIcon) return null;
+
+    if (doubleIcon && value) {
+      return (
+        <WrapDoubleIcon>
+          <Cross style={{ marginRight }} onClick={onClear} />
+          <Separator />
+          <BottomArrow style={{ marginRight }} />
+        </WrapDoubleIcon>
+      );
+    }
 
     if (value) return <Cross style={{ marginRight }} onClick={onClear} />;
     if (!value && isFocused) return <Search style={{ marginRight }} />;
@@ -177,14 +189,14 @@ export default class InputContent extends Component {
         theme={theme}
         onSelect={this.onSelectBlocker}
       >
-        {iconPosition == "left" && this.renderIcon(16)}
+        {iconPosition == 'left' && this.renderIcon(16)}
         <Placeholder
           focused={isFocused}
           disabled={disabled}
           isError={isError}
           theme={theme}
           isSaved={savePlaceholder}
-          left={iconPosition == "left" ? 26 : 0}
+          left={iconPosition == 'left' ? 26 : 0}
         >
           {placeholder}
         </Placeholder>
@@ -205,7 +217,7 @@ export default class InputContent extends Component {
 
         {rightIconReplacer
           ? rightIconReplacer
-          : iconPosition == "right" && this.renderIcon()}
+          : iconPosition == 'right' && this.renderIcon()}
       </InputContentWrap>
     );
   }
