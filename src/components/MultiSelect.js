@@ -216,6 +216,8 @@ class MultiSelect extends Component {
 
   onFocus(e) {
 
+    if (this.props.disabled) return;
+
     this.setState({
       isOpen: true,
       isFocused: this.props.RenderValues ? true : this.state.isFocused
@@ -280,7 +282,7 @@ class MultiSelect extends Component {
           {iconPosition == "left" && this.renderIcon(16)}
           <Placeholder
             focused={this.state.isFocused}
-            dispabled={this.props.disabled}
+            disabled={this.props.disabled}
             isError={this.props.isError}
             theme={this.props.theme}
             isSaved={this.props.savePlaceholder}
@@ -290,6 +292,7 @@ class MultiSelect extends Component {
           </Placeholder>
           {RenderValues ? (
             <RenderValues
+              disabled={this.props.disabled}
               container={this.container}
               onFocus={this.onFocus}
               value={this.state.value}
@@ -326,6 +329,7 @@ class MultiSelect extends Component {
         </InvisibleSelect>
 
         <PanelWrap
+          disabled={this.props.disabled}
           isOpen={this.state.isOpen}
           top={this.state.top}
           truncate={otherProps.truncate}
@@ -338,6 +342,7 @@ class MultiSelect extends Component {
 
           <SelectOptionsPanel
             theme={theme}
+            disabled={this.props.disabled}
             isOpen={this.state.isOpen}
             visible={this.state.isOpen}
             truncate={this.props.truncate}
