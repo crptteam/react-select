@@ -319,7 +319,29 @@ class Demo extends React.Component {
         value: 'PRODUCER',
         name: 'Производитель'
       },
-      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' }
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
+      { id: 6, title: 'ФОИВ', value: 'FOIV', name: 'ФОИВ' },
     ]
   };
 
@@ -373,6 +395,7 @@ class Demo extends React.Component {
             placeholder="Укажите своих операторов ЭДО"
             savePlaceholder
             truncate
+            disabled
             withoutIcon
             RenderValues={RenderValues}
             RenderOption={RenderOption}
