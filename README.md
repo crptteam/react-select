@@ -34,8 +34,9 @@ import { SingleSelect, MultiSelect } from "@crpt/react-select";
 | truncate: Boolean | Long text truncation. Select options width will not exceed input width.  | `<SingleSelect truncate values=[{id:1, title: "very looong text"}] />` |
 | multiline: Boolean | Long text wrap. | `<SingleSelect multiline values=[{id:1, title: "very looong text"}] />` |
 | isLoading: Boolean | If true, there is "Загрузка..." displayed on drop list | |
-| renderValue: React element or function | It is a function for rendering title to inputText. | See note 2.|
-| renderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
+| RenderValues: React element or function | It is a function for rendering title to inputText. | See note 2.|
+| RenderOption: React element or function | It is rendered instead of all of titles in values (working with renderValue) | |
+| RenderIcon: React element or function | It is rendered instead of option selected icon | |
 | onRef | Return {this of SingleSelect} in componentDidMount and undefined in componentWillUnmount| | |
 | hideOptionsPanel: Boolean | If true optionList isn't shown | | |
 | withoutIcon: Boolean | Seach and BottomArrow Icons are not shown when properties is true | | |

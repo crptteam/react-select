@@ -20,6 +20,14 @@ import PanelWrap from "../styled/PanelWrap";
 import OptionsPointer from "../styled/OptionsPointer";
 import PointerHelper from "../styled/PointerHelper";
 
+const eventCatcherStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  zIndex: '100',
+  cursor: 'pointer'
+}
+
 class MultiSelect extends Component {
   blurTimeout;
   select;
@@ -164,7 +172,7 @@ class MultiSelect extends Component {
   }
 
   renderValues() {
-    const { values, noValuesText, RenderOption } = this.props;
+    const { values, noValuesText, RenderOption, RenderIcon, iconLeft } = this.props;
 
     const filtered = values.filter(
       v =>
@@ -174,6 +182,16 @@ class MultiSelect extends Component {
               .indexOf(this.state.filterValue.toLocaleLowerCase())
           : true
     );
+
+    const IconWrap = ({active, disabled}) => (
+      <SelectedIconWrap renderIcon={RenderIcon}>
+        {active ? (
+          RenderIcon ? <RenderIcon active={active} disabled={disabled}/> : <SelectCheckmark />
+        ) : (
+          RenderIcon ? <RenderIcon active={active} disabled={disabled}/> : ''
+        )}
+      </SelectedIconWrap>
+    )
 
     return filtered.length ? (
       filtered.map(
@@ -186,28 +204,28 @@ class MultiSelect extends Component {
               active={!!~this.state.selectedIds.indexOf(v.id)}
             />
           ) : (
-            <SelectOption
-              theme={this.props.theme}
-              key={v.id}
-              disabled={v.disabled}
-              onClick={e => this.onSelect(e, v)}
-              multi
-            >
-              <SelectText
-                truncate={this.props.truncate}
-                multiline={this.props.multiline}
+            <div style={{ position: 'relative' }}>
+              <div style={eventCatcherStyle} onClick={e => this.onSelect(e, v)}/>
+              <SelectOption
+                theme={this.props.theme}
+                key={v.id}
+                disabled={v.disabled}
+                multi
               >
-                {v.title}
-              </SelectText>
-              <SelectedIconWrap>
-                {~this.state.selectedIds.indexOf(v.id) ? (
-                  <SelectCheckmark />
-                ) : (
-                  ""
-                )}
-              </SelectedIconWrap>
-            </SelectOption>
-          )
+                {iconLeft && <IconWrap active={!!~this.state.selectedIds.indexOf(v.id)} disabled={v.disabled}/>}
+
+                <SelectText
+                  truncate={this.props.truncate}
+                  multiline={this.props.multiline}
+                >
+                  {v.title}
+                </SelectText>
+
+                {!iconLeft && <IconWrap active={!!~this.state.selectedIds.indexOf(v.id)} disabled={v.disabled}/>}
+
+              </SelectOption>
+            </div>
+          ),
       )
     ) : (
       <SelectOption>{noValuesText}</SelectOption>
