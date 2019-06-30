@@ -204,10 +204,11 @@ class MultiSelect extends Component {
               active={!!~this.state.selectedIds.indexOf(v.id)}
             />
           ) : (
-            <div key={v.id} style={{ position: 'relative' }}>
+            <div style={{ position: 'relative' }}>
               <div style={eventCatcherStyle} onClick={e => this.onSelect(e, v)}/>
               <SelectOption
                 theme={this.props.theme}
+                key={v.id}
                 disabled={v.disabled}
                 multi
               >
