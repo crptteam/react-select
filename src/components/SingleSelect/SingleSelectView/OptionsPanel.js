@@ -65,7 +65,7 @@ export default class OptionsPanel extends Component {
   isFiltered = ({ item, value }) => {
     const filteredString = item.filterString
       ? item.filterString
-      : item.title
+      : (item.title && typeof item.title === 'string')
         ? item.title
         : value;
     if (typeof(filteredString) === 'string') {
@@ -133,6 +133,7 @@ export default class OptionsPanel extends Component {
           custom
           onClick={event => onSelect(event, item)}
         >
+          {item.id}
           {this.renderItem({
             truncate,
             multiline,
