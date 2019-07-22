@@ -296,7 +296,8 @@ class Demo extends React.Component {
       { id: 0, title: 'Розница', value: 'RETAIL', name: 'Розница' },
       {
         id: 1,
-        title: 'Участник оборота',
+        title: <div>Участник обормота</div>,
+        titleOption: 'Участнег Оборота',
         value: 'TRADE_PARTICIPANT',
         name: 'Участник оборота'
       },
