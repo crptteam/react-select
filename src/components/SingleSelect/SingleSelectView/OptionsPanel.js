@@ -133,7 +133,6 @@ export default class OptionsPanel extends Component {
           custom
           onClick={event => onSelect(event, item)}
         >
-          {item.id}
           {this.renderItem({
             truncate,
             multiline,
