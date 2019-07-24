@@ -33,9 +33,9 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   onKeyPress: PropTypes.func.isRequired,
+  containerRef: PropTypes.func.isRequired,
   onMouseOut: PropTypes.func.isRequired,
   onMouseMove: PropTypes.func.isRequired
 };
@@ -57,22 +57,22 @@ const SingleSelectView = props => {
     onChange,
     onSelect,
     onFocus,
-    onBlur,
     onClick,
     onKeyPress,
     onMouseOut,
     onMouseMove,
     showPointer,
+    containerRef,
     ...otherProps
   } = props;
   return (
     <InputWrap
       inline={inline === false ? inline : true}
       onFocus={onFocus}
+      innerRef={containerRef}
       onKeyPress={onKeyPress}
       onMouseOut={onMouseOut}
       onMouseMove={onMouseMove}
-      onBlur={onBlur}
       isOpen={isOpen}
       {...otherProps}
     >

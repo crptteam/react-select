@@ -35,7 +35,7 @@ class SingleSelect extends Component {
     onChange: PropTypes.func,
     onEnterKey: PropTypes.func,
     onTogglePanel: PropTypes.func,
-    rightIconReplacer: PropTypes.element,
+    rightIconReplacer: PropTypes.element
   };
 
   static defaultProps = {
@@ -72,9 +72,40 @@ class SingleSelect extends Component {
     this.state = this.defaultState;
     this.blurTimeout = null;
     this.select = null;
+    this.container = null;
+  }
+
+  handleClick = e => {
+    if (!this.container) return;
+    if (this.container.contains(e.target)) {
+      return;
+    }
+
+    if (!this.state.isOpen) return;
+
+    const { values } = this.props;
+    const { value, selectedId } = this.state;
+
+    console.log("value", value);
+    console.log("props", this.props);
+    console.log("state", JSON.stringify(this.state));
+
+    if (value) {
+      const item = values.find(
+        i => i.title === value || i.value === value || i.type === value
+      );
+      if (item && item.id !== selectedId) this.onSelect(event, item);
+    }
+
+    setTimeout(() => this.closeOptionPanel(), 0);
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClick, false);
   }
 
   componentDidMount() {
+    document.addEventListener("mousedown", this.handleClick, false);
     const { onRef } = this.props;
     const { selectedId } = this.state;
     if (selectedId !== null && this.select) {
@@ -98,6 +129,8 @@ class SingleSelect extends Component {
   }
 
   onChange = event => {
+    console.log("onChange event.target.value", event.target.value);
+
     const { onChange, onSelect } = this.props;
 
     if (onChange) {
@@ -113,12 +146,16 @@ class SingleSelect extends Component {
     if (event.target.value === "") {
       onSelect(null);
     }
+
     if (this.blurTimeout) {
       clearTimeout(this.blurTimeout);
     }
   };
 
   onSelect = (event, value) => {
+    console.log("onSelect event", event);
+    console.log("onSelect value", value);
+
     const { onSelect, onTogglePanel } = this.props;
     if (value.disabled) return;
 
@@ -148,16 +185,6 @@ class SingleSelect extends Component {
     event.preventDefault();
   };
 
-  onBlur = (event) => {
-    this.blurTimeout = setTimeout(this.closeOptionPanel, ON_BLUR_TIMEOUT_MS);
-    const { values } = this.props;
-    const { value, selectedId } = this.state;
-    if (value) {
-      const item = values.find(i => i.title === value || i.value === value || i.type === value);
-      if (item && item.id !== selectedId) this.onSelect(event, item);
-    }
-  };
-
   onFocus = event => {
     const { selectedId } = this.state;
 
@@ -184,6 +211,7 @@ class SingleSelect extends Component {
   };
 
   onClickRenderWrap = () => {
+    console.log("onClickRenderWrap");
     const { onTogglePanel } = this.props;
     const { isOpen } = this.state;
     this.setState({ isOpen: !isOpen });
@@ -211,6 +239,7 @@ class SingleSelect extends Component {
         this.open = false;
         onTogglePanel(false);
       }
+      console.log("in timeout");
       this.updateValue();
     }, ON_MOUSE_OUT_TIMEOUT_MS);
   };
@@ -230,6 +259,7 @@ class SingleSelect extends Component {
   };
 
   updateValue = props => {
+    console.log("updateValue!");
     const { selectedId, editedAfterSelection } = this.state;
     const { values } = this.props;
     const isValidId = values.find(item => item.id === selectedId) !== undefined;
@@ -281,6 +311,7 @@ class SingleSelect extends Component {
   };
 
   clear = () => {
+    console.log("clear!");
     const { onSelect, onTogglePanel, selectedIdOnClear } = this.props;
 
     let returnValue;
@@ -299,15 +330,13 @@ class SingleSelect extends Component {
 
     if (onSelect) {
       if (selectedIdOnClear !== undefined) {
+        const value = this.props.values[selectedIdOnClear];
+        this.setState({
+          value: value.title
+        });
+        onSelect(value);
 
-          const value = this.props.values[selectedIdOnClear];
-          this.setState({
-            value: value.title
-          });
-          onSelect(value);
-
-          returnValue = {...value, _type: 'SingleSelect'};
-
+        returnValue = { ...value, _type: "SingleSelect" };
       } else {
         onSelect(null);
       }
@@ -321,6 +350,7 @@ class SingleSelect extends Component {
       <SingleSelectView
         {...this.props}
         {...this.state}
+        containerRef={el => (this.container = el)}
         isOpen={this.state.isOpen}
         onRef={this.onRef}
         onOptionsRef={this.onOptionsRef}
@@ -329,7 +359,6 @@ class SingleSelect extends Component {
         onSelect={this.onSelect}
         onFocus={this.onFocus}
         onKeyPress={this.onKeyPress}
-        onBlur={this.onBlur}
         onClick={this.onClick}
         onClickRenderWrap={this.onClickRenderWrap}
         onMouseOut={this.onMouseOut}
