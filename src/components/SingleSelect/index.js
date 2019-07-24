@@ -86,10 +86,6 @@ class SingleSelect extends Component {
     const { values } = this.props;
     const { value, selectedId } = this.state;
 
-    console.log("value", value);
-    console.log("props", this.props);
-    console.log("state", JSON.stringify(this.state));
-
     if (value) {
       const item = values.find(
         i => i.title === value || i.value === value || i.type === value
@@ -129,7 +125,6 @@ class SingleSelect extends Component {
   }
 
   onChange = event => {
-    console.log("onChange event.target.value", event.target.value);
 
     const { onChange, onSelect } = this.props;
 
@@ -153,8 +148,6 @@ class SingleSelect extends Component {
   };
 
   onSelect = (event, value) => {
-    console.log("onSelect event", event);
-    console.log("onSelect value", value);
 
     const { onSelect, onTogglePanel } = this.props;
     if (value.disabled) return;
@@ -211,7 +204,6 @@ class SingleSelect extends Component {
   };
 
   onClickRenderWrap = () => {
-    console.log("onClickRenderWrap");
     const { onTogglePanel } = this.props;
     const { isOpen } = this.state;
     this.setState({ isOpen: !isOpen });
@@ -239,7 +231,6 @@ class SingleSelect extends Component {
         this.open = false;
         onTogglePanel(false);
       }
-      console.log("in timeout");
       this.updateValue();
     }, ON_MOUSE_OUT_TIMEOUT_MS);
   };
@@ -259,7 +250,6 @@ class SingleSelect extends Component {
   };
 
   updateValue = props => {
-    console.log("updateValue!");
     const { selectedId, editedAfterSelection } = this.state;
     const { values } = this.props;
     const isValidId = values.find(item => item.id === selectedId) !== undefined;
@@ -311,7 +301,6 @@ class SingleSelect extends Component {
   };
 
   clear = () => {
-    console.log("clear!");
     const { onSelect, onTogglePanel, selectedIdOnClear } = this.props;
 
     let returnValue;
